@@ -22,13 +22,13 @@ O frontend estará disponível em: http://localhost:3000
 
 ## Recursos necessários
 
-- [ ] Sistema de autenticação (login/registro)
-- [ ] Dashboard com resumo do banco de horas
-- [ ] Tela de registro de ponto
-- [ ] Histórico de pontos
-- [ ] Gestão de ausências
-- [ ] Tela admin para aprovar ausências
-- [ ] Relatórios e exportação
+-   [ ] Sistema de autenticação (login/registro)
+-   [ ] Dashboard com resumo do banco de horas
+-   [ ] Tela de registro de ponto
+-   [ ] Histórico de pontos
+-   [ ] Gestão de ausências
+-   [ ] Tela admin para aprovar ausências
+-   [ ] Relatórios e exportação
 
 ## Estrutura sugerida
 
