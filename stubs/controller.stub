@@ -1,0 +1,162 @@
+<?php
+
+namespace App\Http\Controllers;
+
+use App\Models\{{modelName}};
+use App\Services\{{serviceName}};
+use App\DTO\{{dtoName}};
+use App\Helpers\ApiResponse;
+use Illuminate\Http\Request;
+use Illuminate\Http\JsonResponse;
+use Illuminate\Support\Facades\Validator;
+
+class {{controllerName}} extends Controller
+{
+    public function __construct(
+        private {{serviceName}} ${{variableName}}Service
+    ) {}
+
+    /**
+     * Lista todos os {{routeName}}s paginados
+     * 
+     * @param Request $request
+     * @return JsonResponse
+     */
+    public function listar(Request $request): JsonResponse
+    {
+        try {
+            $perPage = $request->get('per_page', 15);
+            ${{pluralVariable}} = $this->{{variableName}}Service->listar($perPage);
+            
+            return ApiResponse::success(
+                ${{pluralVariable}},
+                '{{modelName}}s listados com sucesso'
+            );
+        } catch (\Exception $e) {
+            return ApiResponse::error(
+                'Erro ao listar {{routeName}}s: ' . $e->getMessage(),
+                500
+            );
+        }
+    }
+
+    /**
+     * Cria um novo {{routeName}}
+     * 
+     * @param Request $request
+     * @return JsonResponse
+     */
+    public function incluir(Request $request): JsonResponse
+    {
+        $validator = Validator::make($request->all(), [
+{{validationRules}}
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Dados inválidos',
+                'errors' => $validator->errors(),
+            ], 422);
+        }
+
+        try {
+            $dto = {{dtoName}}::fromRequest($request->all());
+            ${{variableName}} = $this->{{variableName}}Service->incluir($dto);
+            
+            return ApiResponse::success(
+                ${{variableName}},
+                '{{modelName}} criado com sucesso',
+                201
+            );
+        } catch (\Exception $e) {
+            return ApiResponse::error(
+                'Erro ao criar {{routeName}}: ' . $e->getMessage(),
+                500
+            );
+        }
+    }
+
+    /**
+     * Busca um {{routeName}} específico
+     * 
+     * @param int $id
+     * @return JsonResponse
+     */
+    public function obterPorCodigo(int $id): JsonResponse
+    {
+        try {
+            ${{variableName}} = $this->{{variableName}}Service->obter($id);
+            
+            return ApiResponse::success(
+                ${{variableName}},
+                '{{modelName}} encontrado'
+            );
+        } catch (\Exception $e) {
+            return ApiResponse::error(
+                'Erro ao buscar {{routeName}}: ' . $e->getMessage(),
+                404
+            );
+        }
+    }
+
+    /**
+     * Atualiza um {{routeName}} existente
+     * 
+     * @param Request $request
+     * @param int $id
+     * @return JsonResponse
+     */
+    public function atualizar(Request $request, int $id): JsonResponse
+    {
+        $validator = Validator::make($request->all(), [
+{{updateValidationRules}}
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Dados inválidos',
+                'errors' => $validator->errors(),
+            ], 422);
+        }
+
+        try {
+            $dto = {{dtoName}}::fromRequest($request->all());
+            ${{variableName}} = $this->{{variableName}}Service->atualizar($id, $dto);
+            
+            return ApiResponse::success(
+                ${{variableName}},
+                '{{modelName}} atualizado com sucesso'
+            );
+        } catch (\Exception $e) {
+            return ApiResponse::error(
+                'Erro ao atualizar {{routeName}}: ' . $e->getMessage(),
+                500
+            );
+        }
+    }
+
+    /**
+     * Remove um {{routeName}}
+     * 
+     * @param int $id
+     * @return JsonResponse
+     */
+    public function excluir(int $id): JsonResponse
+    {
+        try {
+            $this->{{variableName}}Service->excluir($id);
+            
+            return ApiResponse::success(
+                null,
+                '{{modelName}} removido com sucesso'
+            );
+        } catch (\Exception $e) {
+            return ApiResponse::error(
+                'Erro ao remover {{routeName}}: ' . $e->getMessage(),
+                500
+            );
+        }
+    }
+}

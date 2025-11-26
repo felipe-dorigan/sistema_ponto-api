@@ -1,0 +1,121 @@
+<?php
+
+namespace App\Repositories;
+
+use App\Models\{{modelName}};
+use Illuminate\Pagination\LengthAwarePaginator;
+
+class {{repositoryName}} extends Repository
+{
+    /**
+     * {{repositoryName}} constructor.
+     * 
+     * @param {{modelName}} ${{variableName}}
+     */
+    public function __construct({{modelName}} ${{variableName}})
+    {
+        parent::__construct(${{variableName}});
+    }
+
+    /**
+     * Lista {{modelName}}s paginados
+     * 
+     * @param int $perPage
+     * @return LengthAwarePaginator
+     */
+    public function listar(int $perPage = 15): LengthAwarePaginator
+    {
+        return $this->model
+            ->orderBy('created_at', 'desc')
+            ->paginate($perPage);
+    }
+
+    /**
+     * Busca {{modelName}} por ID
+     * 
+     * @param int $id
+     * @return {{modelName}}|null
+     */
+    public function obterPorId(int $id): ?{{modelName}}
+    {
+        return $this->model->find($id);
+    }
+
+    /**
+     * Cria um novo {{modelName}}
+     * 
+     * @param array $dados
+     * @return {{modelName}}
+     */
+    public function incluir(array $dados): {{modelName}}
+    {
+        return $this->model->create($dados);
+    }
+
+    /**
+     * Atualiza um {{modelName}}
+     * 
+     * @param int $id
+     * @param array $dados
+     * @return {{modelName}}|null
+     */
+    public function atualizar(int $id, array $dados): ?{{modelName}}
+    {
+        ${{variableName}} = $this->obterPorId($id);
+        
+        if (${{variableName}}) {
+            ${{variableName}}->update($dados);
+            return ${{variableName}}->fresh();
+        }
+        
+        return null;
+    }
+
+    /**
+     * Remove um {{modelName}}
+     * 
+     * @param int $id
+     * @return bool
+     */
+    public function excluir(int $id): bool
+    {
+        ${{variableName}} = $this->obterPorId($id);
+        
+        if (${{variableName}}) {
+            return ${{variableName}}->delete();
+        }
+        
+        return false;
+    }
+
+    /**
+     * Busca {{modelName}}s por critério específico
+     * 
+     * @param string $campo
+     * @param mixed $valor
+     * @return \Illuminate\Database\Eloquent\Collection
+     */
+    public function buscarPor(string $campo, $valor)
+    {
+        return $this->model->where($campo, $valor)->get();
+    }
+
+    /**
+     * Verifica se existe um {{modelName}} com determinado critério
+     * 
+     * @param string $campo
+     * @param mixed $valor
+     * @param int|null $excludeId
+     * @return bool
+     */
+    public function existe(string $campo, $valor, ?int $excludeId = null): bool
+    {
+        $query = $this->model->where($campo, $valor);
+        
+        if ($excludeId) {
+            $query->where('id', '!=', $excludeId);
+        }
+        
+        return $query->exists();
+    }
+}

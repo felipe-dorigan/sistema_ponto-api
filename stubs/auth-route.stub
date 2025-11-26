@@ -1,0 +1,53 @@
+<?php
+
+use App\Http\Controllers\{{controllerName}};
+use Illuminate\Support\Facades\Route;
+
+/*
+|--------------------------------------------------------------------------
+| {{modelName}} Auth Routes
+|--------------------------------------------------------------------------
+|
+| Rotas protegidas por autenticação para {{modelName}}
+| Todas essas rotas requerem token JWT válido
+|
+*/
+
+Route::group(['prefix' => '{{routeName}}'], function () {
+    // Listar todos os {{routeName}}s paginados
+    Route::get('/', [{{controllerName}}::class, 'listar'])
+        ->name('{{routeName}}.listar');
+
+    // Criar novo {{routeName}}
+    Route::post('/', [{{controllerName}}::class, 'incluir'])
+        ->name('{{routeName}}.incluir');
+
+    // Buscar {{routeName}} específico
+    Route::get('/{id}', [{{controllerName}}::class, 'obterPorCodigo'])
+        ->where('id', '[0-9]+')
+        ->name('{{routeName}}.obterPorCodigo');
+
+    // Atualizar {{routeName}}
+    Route::put('/{id}', [{{controllerName}}::class, 'atualizar'])
+        ->where('id', '[0-9]+')
+        ->name('{{routeName}}.atualizar');
+
+    // Atualização parcial do {{routeName}}
+    Route::patch('/{id}', [{{controllerName}}::class, 'atualizar'])
+        ->where('id', '[0-9]+')
+        ->name('{{routeName}}.atualizar_parcial');
+
+    // Excluir {{routeName}}
+    Route::delete('/{id}', [{{controllerName}}::class, 'excluir'])
+        ->where('id', '[0-9]+')
+        ->name('{{routeName}}.excluir');
+
+    // Rotas adicionais específicas do domínio
+    // Route::patch('/{id}/activate', [{{controllerName}}::class, 'activate'])
+    //     ->where('id', '[0-9]+')
+    //     ->name('{{routeName}}.activate');
+    
+    // Route::patch('/{id}/deactivate', [{{controllerName}}::class, 'deactivate'])
+    //     ->where('id', '[0-9]+')
+    //     ->name('{{routeName}}.deactivate');
+});

@@ -1,0 +1,87 @@
+<?php
+
+namespace App\DTO;
+
+class {{dtoName}}
+{
+{{properties}}
+
+    public function __construct(
+{{constructor}}
+    ) {
+{{assignProperties}}
+    }
+
+    /**
+     * Cria uma instância do DTO a partir de um request ou array
+     * 
+     * @param array $data
+     * @return self
+     */
+    public static function fromRequest(array $data): self
+    {
+        return new self(
+{{fromRequestMapping}}
+        );
+    }
+
+    /**
+     * Cria uma instância do DTO a partir de um array
+     * 
+     * @param array $data
+     * @return self
+     */
+    public static function fromArray(array $data): self
+    {
+        return self::fromRequest($data);
+    }
+
+    /**
+     * Converte o DTO para array
+     * 
+     * @return array
+     */
+    public function toArray(): array
+    {
+        return array_filter([
+{{toArrayMapping}}
+        ], function ($value) {
+            return $value !== null;
+        });
+    }
+
+    /**
+     * Converte o DTO para JSON
+     * 
+     * @return string
+     */
+    public function toJson(): string
+    {
+        return json_encode($this->toArray());
+    }
+
+    /**
+     * Verifica se o DTO está válido
+     * 
+     * @return bool
+     */
+    public function isValid(): bool
+    {
+        // Adicione validações específicas aqui
+        // Exemplo:
+        // return !empty($this->name) && !empty($this->email);
+        return true;
+    }
+
+    /**
+     * Obtém apenas os campos preenchidos
+     * 
+     * @return array
+     */
+    public function getFilledFields(): array
+    {
+        return array_filter($this->toArray(), function ($value) {
+            return $value !== null && $value !== '';
+        });
+    }
+}

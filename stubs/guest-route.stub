@@ -1,0 +1,33 @@
+<?php
+
+use App\Http\Controllers\{{controllerName}};
+use Illuminate\Support\Facades\Route;
+
+/*
+|--------------------------------------------------------------------------
+| {{modelName}} Guest Routes
+|--------------------------------------------------------------------------
+|
+| Rotas públicas para {{modelName}}
+| Estas rotas não requerem autenticação
+|
+*/
+
+Route::group(['prefix' => '{{routeName}}'], function () {
+    // Listar {{routeName}}s públicos (apenas ativos/públicos)
+    Route::get('/publico', [{{controllerName}}::class, 'listarPublico'])
+        ->name('{{routeName}}.publico');
+
+    // Buscar {{routeName}} público específico
+    Route::get('/publico/{id}', [{{controllerName}}::class, 'obterPublico'])
+        ->where('id', '[0-9]+')
+        ->name('{{routeName}}.publico.obter');
+
+    // Endpoint para validações (ex: verificar se email existe)
+    // Route::post('/validar', [{{controllerName}}::class, 'validar'])
+    //     ->name('{{routeName}}.validar');
+
+    // Outras rotas públicas específicas do domínio
+    // Route::get('/pesquisar', [{{controllerName}}::class, 'pesquisar'])
+    //     ->name('{{routeName}}.pesquisar');
+});

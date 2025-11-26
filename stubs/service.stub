@@ -1,0 +1,151 @@
+<?php
+
+namespace App\Services;
+
+use App\Models\{{modelName}};
+use App\Repositories\{{repositoryName}};
+use App\DTO\{{dtoName}};
+use App\Exceptions\{{exceptionName}};
+use App\Exceptions\{{notFoundExceptionName}};
+use Illuminate\Pagination\LengthAwarePaginator;
+
+class {{serviceName}}
+{
+    public function __construct(
+        private {{repositoryName}} ${{variableName}}Repository
+    ) {}
+
+    /**
+     * Lista todos os {{modelName}}s paginados
+     * 
+     * @param int $perPage
+     * @return LengthAwarePaginator
+     */
+    public function listar(int $perPage = 15): LengthAwarePaginator
+    {
+        return $this->{{variableName}}Repository->listar($perPage);
+    }
+
+    /**
+     * Obtém um {{modelName}} pelo ID
+     * 
+     * @param int $id
+     * @return {{modelName}}
+     * @throws {{exceptionName}}
+     */
+    public function obter(int $id): {{modelName}}
+    {
+        ${{variableName}} = $this->{{variableName}}Repository->obterPorId($id);
+        
+        if (!${{variableName}}) {
+            throw new {{notFoundExceptionName}}("{{modelName}} com ID {$id} não encontrado");
+        }
+        
+        return ${{variableName}};
+    }
+
+    /**
+     * Inclui um novo {{modelName}}
+     * 
+     * @param {{dtoName}} $dto
+     * @return {{modelName}}
+     */
+    public function incluir({{dtoName}} $dto): {{modelName}}
+    {
+        // Validações de negócio aqui
+        // Exemplo:
+        // if ($this->{{variableName}}Repository->existe('email', $dto->email)) {
+        //     throw new \InvalidArgumentException('Email já existe');
+        // }
+
+        $dados = $dto->toArray();
+        
+        return $this->{{variableName}}Repository->incluir($dados);
+    }
+
+    /**
+     * Atualiza um {{modelName}} existente
+     *
+     * @param int $id
+     * @param {{dtoName}} $dto
+     * @return {{modelName}}
+     * @throws {{notFoundExceptionName}}
+     */
+    public function atualizar(int $id, {{dtoName}} $dto): {{modelName}}
+    {
+        // Verifica se o {{modelName}} existe
+        if (!$this->{{variableName}}Repository->obterPorId($id)) {
+            throw new {{notFoundExceptionName}}("{{modelName}} com ID {$id} não encontrado");
+        }        // Validações de negócio aqui
+        // Exemplo:
+        // if ($dto->email && $this->{{variableName}}Repository->existe('email', $dto->email, $id)) {
+        //     throw new \InvalidArgumentException('Email já existe');
+        // }
+
+        $dados = array_filter($dto->toArray(), function ($value) {
+            return $value !== null;
+        });
+        
+        ${{variableName}}Atualizado = $this->{{variableName}}Repository->atualizar($id, $dados);
+        
+        if (!${{variableName}}Atualizado) {
+            throw new {{exceptionName}}("Erro ao atualizar {{modelName}} com ID {$id}");
+        }
+        
+        return ${{variableName}}Atualizado;
+    }
+
+    /**
+     * Exclui um {{modelName}}
+     *
+     * @param int $id
+     * @return bool
+     * @throws {{notFoundExceptionName}}
+     */
+    public function excluir(int $id): bool
+    {
+        // Verifica se o {{modelName}} existe
+        if (!$this->{{variableName}}Repository->obterPorId($id)) {
+            throw new {{notFoundExceptionName}}("{{modelName}} com ID {$id} não encontrado");
+        }        // Validações de negócio para exclusão aqui
+        // Exemplo:
+        // if ($this->temDependencias($id)) {
+        //     throw new \InvalidArgumentException('Não é possível excluir, há registros dependentes');
+        // }
+
+        return $this->{{variableName}}Repository->excluir($id);
+    }
+
+    /**
+     * Busca {{modelName}}s por critério específico
+     * 
+     * @param string $campo
+     * @param mixed $valor
+     * @return \Illuminate\Database\Eloquent\Collection
+     */
+    public function buscarPor(string $campo, $valor)
+    {
+        return $this->{{variableName}}Repository->buscarPor($campo, $valor);
+    }
+
+    /**
+     * Verifica se um {{modelName}} existe
+     * 
+     * @param string $campo
+     * @param mixed $valor
+     * @param int|null $excludeId
+     * @return bool
+     */
+    public function existe(string $campo, $valor, ?int $excludeId = null): bool
+    {
+        return $this->{{variableName}}Repository->existe($campo, $valor, $excludeId);
+    }
+
+    // Adicione métodos específicos do seu domínio aqui
+    // Exemplo:
+    // public function ativar(int $id): {{modelName}}
+    // {
+    //     ${{variableName}} = $this->obter($id);
+    //     return $this->{{variableName}}Repository->atualizar($id, ['status' => 'active']);
+    // }
+}
