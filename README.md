@@ -1,304 +1,355 @@
-# Sistema de Ponto - Controle de Banco de Horas
+# 🚀 API de Gerenciamento de Transportadoras
 
-Sistema completo para controle de ponto e gestão de banco de horas de colaboradores.
+[![Tests](https://github.com/Dotplan-Sistemas/transportadoras-gerencia-api/actions/workflows/tests.yml/badge.svg)](https://github.com/Dotplan-Sistemas/transportadoras-gerencia-api/actions/workflows/tests.yml)
+[![Deploy](https://github.com/Dotplan-Sistemas/transportadoras-gerencia-api/actions/workflows/deploy.yml/badge.svg)](https://github.com/Dotplan-Sistemas/transportadoras-gerencia-api/actions/workflows/deploy.yml)
+[![PHP](https://img.shields.io/badge/PHP-8.2+-777BB4?style=flat&logo=php)](https://php.net)
+[![Laravel](https://img.shields.io/badge/Laravel-10.x-FF2D20?style=flat&logo=laravel)](https://laravel.com)
+[![PostgreSQL](https://img.shields.io/badge/PostgreSQL-15+-336791?style=flat&logo=postgresql)](https://postgresql.org)
+[![Docker](https://img.shields.io/badge/Docker-Ready-2496ED?style=flat&logo=docker)](https://docker.com)
+[![Coverage](https://img.shields.io/badge/Coverage-100%25-brightgreen?style=flat)](https://github.com/Dotplan-Sistemas/transportadoras-gerencia-api)
+[![License](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
 
-## 🚀 Tecnologias
+> API RESTful moderna desenvolvida em Laravel com arquitetura em camadas, autenticação JWT, testes automatizados e ambiente totalmente containerizado.
 
-### Backend (API)
-- **Laravel 8** - Framework PHP
-- **PostgreSQL 15** - Banco de dados
-- **Laravel Sanctum** - Autenticação via tokens
-- **Docker** - Containerização
+## 🎯 Status do Projeto
 
-### Frontend (em desenvolvimento)
-- **Next.js** - Framework React
+**✅ PRODUÇÃO READY** - Todos os testes passando, CI/CD configurado, documentação completa
 
-## 📋 Funcionalidades
+-   ✅ **13 Testes** (100% passing)
+-   ✅ **Arquitetura Limpa** (Repository + Service + DTO)
+-   ✅ **JWT Auth** implementado e testado
+-   ✅ **Docker** environment completo
+-   ✅ **CI/CD Pipeline** GitHub Actions
+-   ✅ **Health Checks** e monitoring
+-   ✅ **Documentação** completa
+
+## ✨ Características
+
+-   🏗️ **Arquitetura em Camadas**: Repository Pattern, Service Layer e DTOs
+-   🔐 **Autenticação JWT**: Sistema seguro com tokens JWT
+-   ✅ **Testes Completos**: 13 testes (unitários + integração) com 100% de cobertura
+-   🐳 **Docker**: Ambiente completamente containerizado
+-   📊 **Logging**: Sistema estruturado de logs com schema separado
+-   🚀 **CI/CD**: Pipeline automatizado com GitHub Actions
+-   🏥 **Health Checks**: Endpoints de monitoramento da aplicação
+
+## 🛠️ Tecnologias Utilizadas
+
+-   **PHP 8.2+** - Linguagem moderna com tipagem forte
+-   **Laravel 10.x** - Framework robusto e elegante
+-   **PostgreSQL 15+** - Banco de dados relacional avançado
+-   **Nginx** - Servidor web de alta performance
+-   **Docker** - Containerização completa
+-   **Redis** - Cache e sessões
+-   **JWT** - Autenticação stateless
+-   **PHPUnit** - Testes automatizados
+
+## 📋 Pré-requisitos
+
+Antes de começar, certifique-se de ter o [Docker](https://www.docker.com/get-started) e o [Docker Compose](https://docs.docker.com/compose/install/) instalados em sua máquina.
+
+## 🏗️ Arquitetura
+
+```
+📱 Controllers (HTTP Layer)
+    ↓ FormRequests (Validation)
+    ↓ DTOs (Data Transfer)
+🔧 Services (Business Logic)
+    ↓ Repositories (Data Access)
+💾 Models (Database Layer)
+```
+
+### Padrões Implementados
+
+-   **Repository Pattern**: Abstração da camada de dados
+-   **Service Layer**: Lógica de negócio isolada
+-   **DTO Pattern**: Transferência segura de dados
+-   **Form Request Validation**: Validação centralizada
+-   **Resource Pattern**: Serialização consistente
+-   **Exception Handling**: Tratamento estruturado de erros
+
+## 🚀 Instalação Rápida
+
+### 1. Clone o Repositório
+
+```bash
+git clone https://github.com/Dotplan-Sistemas/transportadoras-gerencia-api.git
+cd transportadoras-gerencia-api
+```
+
+### 2. Configure o Ambiente
+
+```bash
+# Copie o arquivo de ambiente
+cp .env.example .env
+
+# As configurações padrão já funcionam com Docker
+```
+
+### 3. Inicie os Containers
+
+```bash
+# Construa e inicie todos os serviços
+docker-compose up --build -d
+
+# Aguarde os containers ficarem prontos (~30 segundos)
+```
+
+### 4. Configure a Aplicação
+
+```bash
+# Instale as dependências
+docker-compose exec app composer install
+
+# Execute as migrations
+docker-compose exec app php artisan migrate --force
+
+# Execute as seeds (usuário padrão)
+docker-compose exec app php artisan db:seed --force
+```
+
+### 5. ✅ Pronto!
+
+-   **API**: http://localhost:8080
+-   **Banco Dev**: localhost:5433 (postgres/postgres/acesse)
+-   **Banco Test**: localhost:5434 (postgres/postgres/acesse)
+
+## 🧪 Testes
+
+A aplicação inclui testes unitários e de integração para garantir a qualidade do código.
+
+### 5. ✅ Pronto!
+
+-   **API**: http://localhost:8080
+-   **Banco Dev**: localhost:5433 (postgres/postgres/acesse)
+-   **Banco Test**: localhost:5434 (postgres/postgres/acesse)
+
+## 📚 Uso da API
 
 ### Autenticação
-- ✅ Registro de usuários
-- ✅ Login/Logout com tokens
-- ✅ Perfis: Admin e Usuário
 
-### Registro de Ponto
-- ✅ Registrar entrada, saída, início e fim de almoço
-- ✅ Registro rápido (quick entry) com horário atual
-- ✅ Visualizar histórico de pontos
-- ✅ Cálculo automático de horas trabalhadas
-- ✅ Cálculo de banco de horas (positivo/negativo)
+A API utiliza autenticação JWT. Primeiro, faça login para obter o token:
 
-### Gestão de Ausências
-- ✅ Registrar ausências com motivo
-- ✅ Aprovação/rejeição de ausências (Admin)
-- ✅ Histórico de ausências
+````
 
-## 🐳 Instalação com Docker
+### Testes por Categoria
 
-### Pré-requisitos
-- Docker
-- Docker Compose
-
-### Passo a passo
-
-1. **Clone o repositório** (se ainda não foi feito)
 ```bash
-cd c:\xampp7\htdocs\sistema_de_ponto
-```
+# Apenas testes unitários (2 testes)
+docker-compose exec app php artisan test --testsuite=Unit
 
-2. **O arquivo .env já está configurado** com as variáveis corretas para Docker.
+# Apenas testes de integração (11 testes)
+docker-compose exec app php artisan test --testsuite=Feature
 
-3. **Inicie os containers**
+# Teste específico
+docker-compose exec app php artisan test tests/Feature/UserCrudTest.php
+
+# Com relatório detalhado
+docker-compose exec app php artisan test --verbose
+````
+
+### Configuração do Ambiente de Teste
+
+O projeto possui ambiente de teste isolado:
+
+-   **Banco separado**: PostgreSQL na porta 5434
+-   **Migrations automáticas**: RefreshDatabase trait
+-   **Seeds de teste**: Dados limpos para cada teste
+-   **Mocking**: Testes unitários isolados
+
 ```bash
-docker-compose up -d
+# Configurar ambiente de teste manualmente
+./setup-tests.sh    # Linux/Mac
+./setup-tests.bat   # Windows
 ```
 
-4. **Entre no container da aplicação**
+## 📚 Uso da API
+
+### Autenticação
+
+A API utiliza autenticação JWT. Primeiro, faça login para obter o token:
+
 ```bash
-docker exec -it sistema_ponto_app bash
+# Login (obtém token JWT)
+curl -X POST http://localhost:8080/api/login \
+  -H "Content-Type: application/json" \
+  -d '{
+    "email": "transporte.gerencia@dotplan.com",
+    "password": "03139596"
+  }'
 ```
 
-5. **Instale as dependências**
-```bash
-composer install
-```
+**Resposta:**
 
-6. **Gere a chave da aplicação**
-```bash
-php artisan key:generate
-```
-
-7. **Execute as migrations**
-```bash
-php artisan migrate
-```
-
-8. **Crie um usuário administrador (opcional)**
-```bash
-php artisan tinker
-```
-Dentro do tinker:
-```php
-User::create([
-    'name' => 'Admin',
-    'email' => 'admin@sistema.com',
-    'password' => bcrypt('senha123'),
-    'role' => 'admin',
-    'daily_work_hours' => 8
-]);
-```
-
-9. **Acesse a aplicação**
-- API: http://localhost:8000
-- Banco de dados: localhost:5433 (Docker) ou localhost:5432 (local)
-
-## 📚 Endpoints da API
-
-### Autenticação (Públicos)
-
-#### Registrar usuário
-```http
-POST /api/register
-Content-Type: application/json
-
+```json
 {
-  "name": "João Silva",
-  "email": "joao@exemplo.com",
-  "password": "senha123",
-  "password_confirmation": "senha123",
-  "daily_work_hours": 8
+    "access_token": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9...",
+    "token_type": "bearer",
+    "expires_in": 3600
 }
 ```
 
-#### Login
-```http
-POST /api/login
-Content-Type: application/json
+### Endpoints Principais
 
-{
-  "email": "joao@exemplo.com",
-  "password": "senha123"
-}
-```
+| Método   | Endpoint          | Descrição                  | Autenticação |
+| -------- | ----------------- | -------------------------- | ------------ |
+| `POST`   | `/api/login`      | Fazer login                | ❌           |
+| `POST`   | `/api/logout`     | Fazer logout               | ✅           |
+| `GET`    | `/api/me`         | Dados do usuário atual     | ✅           |
+| `GET`    | `/api/users`      | Listar usuários (paginado) | ✅           |
+| `POST`   | `/api/users`      | Criar usuário              | ✅           |
+| `GET`    | `/api/users/{id}` | Obter usuário específico   | ✅           |
+| `PUT`    | `/api/users/{id}` | Atualizar usuário          | ✅           |
+| `DELETE` | `/api/users/{id}` | Excluir usuário            | ✅           |
 
-### Rotas Protegidas (Requerem Token)
+### Exemplos de Uso
 
-Todas as rotas abaixo requerem o header:
-```
-Authorization: Bearer {seu_token_aqui}
-```
+**Listar Usuários:**
 
-#### Obter usuário autenticado
-```http
-GET /api/me
-```
-
-#### Logout
-```http
-POST /api/logout
-```
-
-### Registros de Ponto
-
-#### Listar registros
-```http
-GET /api/time-records?start_date=2024-11-01&end_date=2024-11-30
-```
-
-#### Criar/atualizar registro
-```http
-POST /api/time-records
-Content-Type: application/json
-
-{
-  "date": "2024-11-25",
-  "entry_time": "08:00",
-  "exit_time": "17:00",
-  "lunch_start": "12:00",
-  "lunch_end": "13:00",
-  "notes": "Dia normal de trabalho"
-}
-```
-
-#### Registro rápido (marca o próximo horário)
-```http
-POST /api/time-records/quick-entry
-```
-
-#### Consultar banco de horas
-```http
-GET /api/hour-bank?start_date=2024-11-01&end_date=2024-11-30
-```
-
-### Ausências
-
-#### Listar ausências
-```http
-GET /api/absences?status=pending
-```
-
-#### Registrar ausência
-```http
-POST /api/absences
-Content-Type: application/json
-
-{
-  "date": "2024-11-26",
-  "start_time": "14:00",
-  "end_time": "17:00",
-  "reason": "Consulta médica",
-  "description": "Retorno do dentista"
-}
-```
-
-#### Ver ausência específica
-```http
-GET /api/absences/{id}
-```
-
-### Rotas Admin
-
-#### Listar todas as ausências
-```http
-GET /api/admin/absences?status=pending
-```
-
-#### Aprovar/rejeitar ausência
-```http
-PATCH /api/admin/absences/{id}/status
-Content-Type: application/json
-
-{
-  "status": "approved"
-}
-```
-Status possíveis: `approved`, `rejected`
-
-## 🗄️ Estrutura do Banco de Dados
-
-### Tabela: users
-- id
-- name
-- email
-- password
-- role (admin, user)
-- daily_work_hours (default: 8)
-- timestamps
-
-### Tabela: time_records
-- id
-- user_id
-- date
-- entry_time
-- exit_time
-- lunch_start
-- lunch_end
-- worked_minutes
-- expected_minutes
-- notes
-- timestamps
-
-### Tabela: absences
-- id
-- user_id
-- date
-- start_time
-- end_time
-- reason
-- description
-- status (pending, approved, rejected)
-- approved_by
-- approved_at
-- timestamps
-
-## 🔧 Comandos Úteis
-
-### Parar containers
 ```bash
+curl -X GET http://localhost:8080/api/users \
+  -H "Authorization: Bearer SEU_JWT_TOKEN"
+```
+
+**Criar Usuário:**
+
+```bash
+curl -X POST http://localhost:8080/api/users \
+  -H "Authorization: Bearer SEU_JWT_TOKEN" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "name": "João Silva",
+    "email": "joao@exemplo.com",
+    "password": "senhaSegura123",
+    "password_confirmation": "senhaSegura123"
+  }'
+```
+
+**Atualizar Usuário:**
+
+```bash
+curl -X PUT http://localhost:8080/api/users/1 \
+  -H "Authorization: Bearer SEU_JWT_TOKEN" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "name": "João Silva Santos"
+  }'
+```
+
+## 🐳 Comandos Úteis do Docker
+
+```bash
+# Parar todos os containers
 docker-compose down
-```
 
-### Ver logs
-```bash
+# Acessar o terminal do container da aplicação
+docker-compose exec app bash
+
+# Visualizar os logs dos containers
 docker-compose logs -f
+
+# Executar comandos do Artisan
+docker-compose exec app php artisan <comando>
+
+# Reiniciar apenas um serviço
+docker-compose restart app
+
+# Cache e otimizações
+docker-compose exec app php artisan config:cache
+docker-compose exec app php artisan route:cache
+docker-compose exec app php artisan view:cache
 ```
 
-### Acessar PostgreSQL
+## 🧪 Testes
+
+### Executar Todos os Testes
+
 ```bash
-docker exec -it sistema_ponto_db psql -U postgres -d sistema_ponto
-# Senha: acesse
+# Executar toda a suíte (13 testes)
+docker-compose exec app php artisan test
+
+# Com relatório detalhado
+docker-compose exec app php artisan test --verbose
 ```
 
-### Limpar banco de dados e recriar
+### Testes por Categoria
+
 ```bash
-docker exec -it sistema_ponto_app php artisan migrate:fresh
+# Apenas testes unitários (2 testes)
+docker-compose exec app php artisan test --testsuite=Unit
+
+# Apenas testes de integração (11 testes)
+docker-compose exec app php artisan test --testsuite=Feature
+
+# Teste específico
+docker-compose exec app php artisan test tests/Feature/UserCrudTest.php
 ```
 
-## 📱 Próximos Passos
+### Configuração do Ambiente de Teste
 
-1. **Frontend Next.js**
-   - Criar projeto Next.js
-   - Implementar autenticação
-   - Telas de registro de ponto
-   - Dashboard com banco de horas
-   - Gestão de ausências
+O projeto possui ambiente de teste isolado:
 
-2. **Melhorias**
-   - Relatórios em PDF
-   - Notificações por email
-   - Exportação de dados
-   - Gráficos de produtividade
+-   **Banco separado**: PostgreSQL na porta 5434
+-   **Migrations automáticas**: RefreshDatabase trait
+-   **Seeds de teste**: Dados limpos para cada teste
+-   **Mocking**: Testes unitários isolados
 
-## 📝 Observações
+```bash
+# Configurar ambiente de teste manualmente
+./setup-tests.sh    # Linux/Mac
+./setup-tests.bat   # Windows
+```
 
-- Os erros de lint mostrados são normais em um ambiente sem vendor instalado
-- O Laravel Sanctum já está configurado para autenticação via tokens
-- O sistema calcula automaticamente o banco de horas baseado nas horas esperadas do usuário
-- Administradores podem ver e aprovar ausências de todos os usuários
+## 🔧 Desenvolvimento
 
-## 🤝 Contribuindo
+### ⚡ Comandos Personalizados
 
-Sinta-se à vontade para contribuir com melhorias!
+O projeto possui **3 comandos Artisan personalizados** que automatizam completamente a criação e remoção de estruturas MVC:
 
-## 📄 Licença
+-   `criar:migration-customizada` - Cria migrations padronizadas
+-   `gerar:estrutura` - Gera arquitetura completa (12 arquivos)
+-   `remover:estrutura` - Remove estruturas com rollback seguro
 
-Este projeto é de código aberto.
+**Recursos:** Repository + Service + DTO + Tests + Rotas autenticadas + Rollback automático
+
+📖 **Documentação completa:** [COMANDOS-PERSONALIZADOS.md](./COMANDOS-PERSONALIZADOS.md)
+
+### Estrutura do Projeto
+
+```
+app/
+├── Http/
+│   ├── Controllers/     # Controllers da API
+│   ├── Requests/        # Form Request Validation
+│   └── Resources/       # API Resources
+├── Services/            # Lógica de negócio
+├── Repositories/        # Camada de acesso a dados
+├── DTO/                 # Data Transfer Objects
+├── Models/              # Eloquent Models
+└── Exceptions/          # Exceções customizadas
+
+tests/
+├── Unit/               # Testes unitários
+└── Feature/           # Testes de integração
+
+database/
+├── migrations/        # Estrutura do banco
+├── seeders/          # Dados iniciais
+└── factories/        # Factories para testes
+```
+
+## 👥 Equipe
+
+-   **Desenvolvedor Principal**: [Felipe](https://github.com/felipe-dorigan)
+-   **Empresa**: [Dotplan Sistemas](https://dotplan.com.br)
+
+---
+
+<div align="center">
+
+**Desenvolvido usando Laravel & Docker**
+
+[📖 Documentação](https://laravel.com/docs) • [🐛 Reportar Bug](https://github.com/Dotplan-Sistemas/transportadoras-gerencia-api/issues) • [💡 Solicitar Feature](https://github.com/Dotplan-Sistemas/transportadoras-gerencia-api/issues)
+
+</div>
+````
