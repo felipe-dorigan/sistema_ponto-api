@@ -19,8 +19,6 @@ class CreateUsersTable extends Migration
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
-            $table->string('role')->default('user'); // admin ou user
-            $table->integer('daily_work_hours')->default(8); // horas de trabalho diárias
             $table->rememberToken();
             $table->timestamps();
         });
