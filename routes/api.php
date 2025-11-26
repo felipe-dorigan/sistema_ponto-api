@@ -2,6 +2,8 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\AuthController;
+use App\Http\Controllers\HealthController;
 
 /*
 |--------------------------------------------------------------------------
@@ -14,29 +16,26 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-// Rotas públicas
-Route::post('/register', [App\Http\Controllers\Api\AuthController::class, 'register']);
-Route::post('/login', [App\Http\Controllers\Api\AuthController::class, 'login']);
+// Health Check Routes (sem autenticação)
+Route::get('/health', [HealthController::class, 'check']);
+Route::get('/ping', [HealthController::class, 'ping']);
 
-// Rotas protegidas (requer autenticação)
-Route::middleware('auth:sanctum')->group(function () {
-    // Autenticação
-    Route::get('/me', [App\Http\Controllers\Api\AuthController::class, 'me']);
-    Route::post('/logout', [App\Http\Controllers\Api\AuthController::class, 'logout']);
+Route::group([], function () {
+    // Carrega dinamicamente todos os arquivos .php da pasta /guest
+    foreach (glob(__DIR__ . '/guest/*.php') as $file) {
+        require $file;
+    }
+});
 
-    // Registros de ponto
-    Route::get('/time-records', [App\Http\Controllers\Api\TimeRecordController::class, 'index']);
-    Route::post('/time-records', [App\Http\Controllers\Api\TimeRecordController::class, 'store']);
-    Route::get('/time-records/{id}', [App\Http\Controllers\Api\TimeRecordController::class, 'show']);
-    Route::post('/time-records/quick-entry', [App\Http\Controllers\Api\TimeRecordController::class, 'quickEntry']);
-    Route::get('/hour-bank', [App\Http\Controllers\Api\TimeRecordController::class, 'hourBank']);
+Route::middleware('auth:api')->group(function () {
+    // Carrega dinamicamente todos os arquivos .php da pasta /auth
+    foreach (glob(__DIR__ . '/auth/*.php') as $file) {
+        require $file;
+    }
+});
 
-    // Ausências
-    Route::get('/absences', [App\Http\Controllers\Api\AbsenceController::class, 'index']);
-    Route::post('/absences', [App\Http\Controllers\Api\AbsenceController::class, 'store']);
-    Route::get('/absences/{id}', [App\Http\Controllers\Api\AbsenceController::class, 'show']);
-    
-    // Rotas admin
-    Route::get('/admin/absences', [App\Http\Controllers\Api\AbsenceController::class, 'indexAll']);
-    Route::patch('/admin/absences/{id}/status', [App\Http\Controllers\Api\AbsenceController::class, 'updateStatus']);
+Route::fallback(function () {
+    return response()->json([
+        'message' => 'Rota não encontrada.',
+    ], 404);
 });
