@@ -1,0 +1,72 @@
+services:
+  app:
+    build:
+      context: .
+      dockerfile: ./docker/Dockerfile
+    container_name: sistema-ponto-app
+    volumes:
+      - ./:/var/www/html
+    ports:
+      - 9000:9000
+    networks:
+      - sistema-ponto
+    depends_on:
+      - postgres
+      - redis
+
+  nginx:
+    image: nginx:stable
+    container_name: sistema-ponto-nginx
+    ports:
+      - 8080:80
+    volumes:
+      - ./:/var/www/html
+      - ./docker/nginx/default.conf:/etc/nginx/conf.d/default.conf
+    depends_on:
+      - app
+    networks:
+      - sistema-ponto
+
+  postgres:
+    image: postgres:15-alpine
+    container_name: sistema-ponto-postgres
+    ports:
+      - 5433:5432
+    environment:
+      POSTGRES_DB: sistema_ponto
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: acesse
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    networks:
+      - sistema-ponto
+
+  postgres_test:
+    image: postgres:15-alpine
+    container_name: sistema-ponto-postgres-test
+    ports:
+      - 5434:5432
+    environment:
+      POSTGRES_DB: sistema_ponto_test
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: acesse
+    volumes:
+      - pgdata_test:/var/lib/postgresql/data
+    networks:
+      - sistema-ponto
+
+  redis:
+    image: redis:alpine
+    container_name: sistema-ponto-redis
+    ports:
+      - 6379:6379
+    networks:
+      - sistema-ponto
+
+networks:
+  sistema-ponto:
+    driver: bridge
+
+volumes:
+  pgdata:
+  pgdata_test:
