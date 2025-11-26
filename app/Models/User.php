@@ -4,13 +4,15 @@ namespace App\Models;
 
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
-use Laravel\Sanctum\HasApiTokens;
+use PHPOpenSourceSaver\JWTAuth\Contracts\JWTSubject;
+use Illuminate\Support\Facades\Hash;
 
-class User extends Authenticatable
+class User extends Authenticatable implements JWTSubject
 {
-    use HasApiTokens, HasFactory, Notifiable;
+    use HasFactory, Notifiable;
 
     /**
      * The attributes that are mass assignable.
@@ -45,6 +47,34 @@ class User extends Authenticatable
     ];
 
     /**
+     * Sempre criptografa a senha quando ela for definida no modelo.
+     *
+     * @return \Illuminate\Database\Eloquent\Casts\Attribute
+     */
+    protected function password(): Attribute
+    {
+        return Attribute::make(
+            set: fn($value) => Hash::make($value),
+        );
+    }
+
+    /**
+     * Get the identifier that will be stored in the subject claim of the JWT.
+     */
+    public function getJWTIdentifier()
+    {
+        return $this->getKey(); // geralmente o id do usuário
+    }
+
+    /**
+     * Return a key value array, containing any custom claims to be added to the JWT.
+     */
+    public function getJWTCustomClaims()
+    {
+        return [];
+    }
+
+    /**
      * Relacionamento com registros de ponto
      */
     public function timeRecords()
@@ -63,7 +93,7 @@ class User extends Authenticatable
     /**
      * Verifica se o usuário é admin
      */
-    public function isAdmin()
+    public function isAdmin(): bool
     {
         return $this->role === 'admin';
     }
@@ -71,14 +101,11 @@ class User extends Authenticatable
     /**
      * Calcula o banco de horas total do usuário
      */
-    public function getTotalHoursBalance()
+    public function getTotalHoursBalance(): float
     {
-        $totalMinutes = $this->timeRecords()
-            ->sum('worked_minutes');
-        
-        $expectedMinutes = $this->timeRecords()
-            ->sum('expected_minutes');
+        $totalWorkedMinutes = $this->timeRecords()->sum('worked_minutes');
+        $totalExpectedMinutes = $this->timeRecords()->sum('expected_minutes');
 
-        return ($totalMinutes - $expectedMinutes) / 60; // retorna em horas
+        return ($totalWorkedMinutes - $totalExpectedMinutes) / 60; // retorna em horas
     }
 }
