@@ -13,7 +13,9 @@ return new class extends Migration
     {
         Schema::table('users', function (Blueprint $table) {
             $table->string('role')->default('user')->after('password'); // admin ou user
-            $table->integer('daily_work_hours')->default(8)->after('role'); // horas de trabalho diárias
+            $table->integer('daily_work_hours')->default(8)->after('role'); // horas de trabalho diárias (em horas)
+            $table->integer('lunch_duration')->default(60)->after('daily_work_hours'); // duração do almoço em minutos
+            $table->boolean('active')->default(true)->after('lunch_duration'); // usuário ativo no sistema
         });
     }
 
@@ -23,7 +25,7 @@ return new class extends Migration
     public function down(): void
     {
         Schema::table('users', function (Blueprint $table) {
-            $table->dropColumn(['role', 'daily_work_hours']);
+            $table->dropColumn(['role', 'daily_work_hours', 'lunch_duration', 'active']);
         });
     }
 };

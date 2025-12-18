@@ -1,0 +1,158 @@
+# API de Gerenciamento de Transportadoras
+
+API desenvolvida em Laravel para gerenciar transportadoras. O ambiente do gerencia é totalmente containerizado usando Docker.
+
+## Tecnologias Utilizadas
+
+-   PHP 8.2+
+-   Laravel 10.x
+-   PostgreSQL
+-   Nginx
+-   Docker
+
+## Pré-requisitos
+
+Antes de começar, certifique-se de ter o [Docker](https://www.docker.com/get-started) e o [Docker Compose](https://docs.docker.com/compose/install/) instalados em sua máquina.
+
+## Configuração do Ambiente de Desenvolvimento
+
+Siga os passos abaixo para configurar e executar o projeto localmente.
+
+### 1. Clonar o Repositório
+
+```bash
+git clone https://github.com/Dotplan-Sistemas/transportadoras-gerencia-api.git>
+cd transportadoras-gerencia-api
+```
+
+### 2. Configurar o Arquivo de Ambiente (.env)
+
+O projeto utiliza um arquivo `.env` para configurar as variáveis de ambiente. Você pode criar o seu a partir do arquivo de exemplo.
+
+```bash
+cp .env.example .env
+```
+
+Abra o arquivo `.env` recém-criado e certifique-se de que as variáveis do banco de dados correspondem às definidas no arquivo `docker-compose.yml`. A configuração padrão para o ambiente Docker é:
+
+```env
+DB_CONNECTION=pgsql
+DB_HOST=127.0.0.1
+DB_PORT=5432
+DB_DATABASE=nome_do_banco
+DB_USERNAME=usuario
+DB_PASSWORD=senha
+```
+
+**Importante:** O valor `DB_HOST` deve ser o nome do serviço do banco de dados definido no `docker-compose.yml` (neste caso, `nome_do_banco`).
+
+### 3. Construir e Iniciar os Containers
+
+Com o Docker em execução, suba os containers da aplicação, do Nginx e do PostgreSQL.
+
+```bash
+docker-compose up --build
+```
+
+### 4. Instalar Dependências do PHP
+
+Acesse o container da aplicação para instalar as dependências do Composer.
+
+```bash
+docker-compose exec app composer install
+```
+
+### 5. Executar as Migrations
+
+Para criar as tabelas no banco de dados, execute as migrations do Laravel.
+
+```bash
+docker-compose exec app php artisan migrate
+```
+
+### 6. Executar as Seeds
+
+Para criar os dados no banco de dados, execute as seeds do Laravel.
+
+```bash
+docker-compose exec app php artisan db:seed
+```
+
+## Acessando a Aplicação
+
+Após seguir todos os passos, a aplicação estará disponível no seu navegador em:
+
+[http://localhost:8080](http://localhost:8080)
+
+## Executando os Testes
+
+A aplicação inclui testes unitários e de integração para garantir a qualidade do código e o funcionamento correto das funcionalidades.
+
+### Executar Todos os Testes
+
+Para executar todos os testes (unitários e de integração):
+
+```bash
+docker-compose exec app php artisan test
+```
+
+### Executar Apenas Testes de Integração
+
+Para executar apenas os testes de integração (Feature Tests):
+
+```bash
+docker-compose exec app php artisan test --testsuite=Feature
+```
+
+### Executar Apenas Testes Unitários
+
+Para executar apenas os testes unitários (Unit Tests):
+
+```bash
+docker-compose exec app php artisan test --testsuite=Unit
+```
+
+### Executar um Arquivo de Teste Específico
+
+Para executar um arquivo específico de teste:
+
+```bash
+# Teste de CRUD de usuários
+docker-compose exec app php artisan test tests/Feature/UserCrudTest.php
+
+# Teste do UserService
+docker-compose exec app php artisan test tests/Unit/Services/UserServiceTest.php
+```
+
+### Cobertura de Testes com Relatório Detalhado
+
+Para executar os testes com informações mais detalhadas:
+
+```bash
+docker-compose exec app php artisan test --verbose
+```
+
+## Comandos Úteis do Docker
+
+-   **Parar todos os containers:**
+
+    ```bash
+    docker-compose down
+    ```
+
+-   **Acessar o terminal do container da aplicação:**
+
+    ```bash
+    docker-compose exec app bash
+    ```
+
+-   **Visualizar os logs dos containers:**
+
+    ```bash
+    docker-compose logs -f
+    ```
+
+-   **Executar comandos do Artisan:**
+    ```bash
+    docker-compose exec app php artisan <comando>
+    ```

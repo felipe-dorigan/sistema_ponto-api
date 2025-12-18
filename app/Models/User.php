@@ -25,6 +25,8 @@ class User extends Authenticatable implements JWTSubject
         'password',
         'role',
         'daily_work_hours',
+        'lunch_duration',
+        'active',
     ];
 
     /**
@@ -44,6 +46,9 @@ class User extends Authenticatable implements JWTSubject
      */
     protected $casts = [
         'email_verified_at' => 'datetime',
+        'daily_work_hours' => 'integer',
+        'lunch_duration' => 'integer',
+        'active' => 'boolean',
     ];
 
     /**
