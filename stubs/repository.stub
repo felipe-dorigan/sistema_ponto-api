@@ -5,12 +5,18 @@ namespace App\Repositories;
 use App\Models\{{modelName}};
 use Illuminate\Pagination\LengthAwarePaginator;
 
+/**
+ * Repository responsável pela persistência de dados de {{routeName}}s
+ * 
+ * Esta classe gerencia todas as operações de banco de dados relacionadas
+ * aos {{routeName}}s.
+ */
 class {{repositoryName}} extends Repository
 {
     /**
-     * {{repositoryName}} constructor.
+     * Construtor do repository
      * 
-     * @param {{modelName}} ${{variableName}}
+     * @param {{modelName}} ${{variableName}} Model de {{routeName}} injetado via DI
      */
     public function __construct({{modelName}} ${{variableName}})
     {
@@ -18,10 +24,10 @@ class {{repositoryName}} extends Repository
     }
 
     /**
-     * Lista {{modelName}}s paginados
+     * Lista {{routeName}}s com paginação
      * 
-     * @param int $perPage
-     * @return LengthAwarePaginator
+     * @param int $perPage Número de registros por página (padrão: 15)
+     * @return LengthAwarePaginator Lista paginada de {{routeName}}s
      */
     public function listar(int $perPage = 15): LengthAwarePaginator
     {
@@ -31,10 +37,10 @@ class {{repositoryName}} extends Repository
     }
 
     /**
-     * Busca {{modelName}} por ID
+     * Busca um {{routeName}} pelo ID
      * 
-     * @param int $id
-     * @return {{modelName}}|null
+     * @param int $id ID do {{routeName}}
+     * @return {{modelName}}|null {{modelName}} encontrado ou null
      */
     public function obterPorId(int $id): ?{{modelName}}
     {
@@ -42,10 +48,10 @@ class {{repositoryName}} extends Repository
     }
 
     /**
-     * Cria um novo {{modelName}}
+     * Cria um novo {{routeName}}
      * 
-     * @param array $dados
-     * @return {{modelName}}
+     * @param array $dados Dados do {{routeName}}
+     * @return {{modelName}} {{modelName}} criado
      */
     public function incluir(array $dados): {{modelName}}
     {
@@ -53,11 +59,11 @@ class {{repositoryName}} extends Repository
     }
 
     /**
-     * Atualiza um {{modelName}}
+     * Atualiza um {{routeName}} existente
      * 
-     * @param int $id
-     * @param array $dados
-     * @return {{modelName}}|null
+     * @param int $id ID do {{routeName}} a ser atualizado
+     * @param array $dados Dados para atualização
+     * @return {{modelName}}|null {{modelName}} atualizado ou null se não encontrado
      */
     public function atualizar(int $id, array $dados): ?{{modelName}}
     {

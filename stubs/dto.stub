@@ -2,10 +2,21 @@
 
 namespace App\DTO;
 
+/**
+ * Data Transfer Object para {{routeName}}s
+ * 
+ * Este DTO encapsula os dados de {{routeName}}s transportados entre camadas,
+ * garantindo imutabilidade e type-safety.
+ */
 class {{dtoName}}
 {
 {{properties}}
 
+    /**
+     * Construtor do DTO
+     * 
+     * @param ... Documentar parâmetros de acordo com as propriedades
+     */
     public function __construct(
 {{constructor}}
     ) {
@@ -13,10 +24,10 @@ class {{dtoName}}
     }
 
     /**
-     * Cria uma instância do DTO a partir de um request ou array
+     * Cria uma instância do DTO a partir de dados validados
      * 
-     * @param array $data
-     * @return self
+     * @param array $data Array de dados validados da requisição
+     * @return self Nova instância do DTO
      */
     public static function fromRequest(array $data): self
     {
@@ -37,9 +48,9 @@ class {{dtoName}}
     }
 
     /**
-     * Converte o DTO para array
+     * Converte o DTO para array (filtra valores nulos)
      * 
-     * @return array
+     * @return array Array com os dados do DTO
      */
     public function toArray(): array
     {

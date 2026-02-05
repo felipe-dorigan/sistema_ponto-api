@@ -9,17 +9,28 @@ use App\Exceptions\{{exceptionName}};
 use App\Exceptions\{{notFoundExceptionName}};
 use Illuminate\Pagination\LengthAwarePaginator;
 
+/**
+ * Service responsável pela lógica de negócio de {{routeName}}s
+ * 
+ * Esta classe contém as regras de negócio e validações para operações
+ * relacionadas aos {{routeName}}s.
+ */
 class {{serviceName}}
 {
+    /**
+     * Construtor do serviço
+     * 
+     * @param {{repositoryName}} ${{variableName}}Repository Repository de {{routeName}}s injetado via DI
+     */
     public function __construct(
         private {{repositoryName}} ${{variableName}}Repository
     ) {}
 
     /**
-     * Lista todos os {{modelName}}s paginados
+     * Lista todos os {{routeName}}s com paginação
      * 
-     * @param int $perPage
-     * @return LengthAwarePaginator
+     * @param int $perPage Número de registros por página (padrão: 15)
+     * @return LengthAwarePaginator Lista paginada de {{routeName}}s
      */
     public function listar(int $perPage = 15): LengthAwarePaginator
     {
@@ -27,11 +38,11 @@ class {{serviceName}}
     }
 
     /**
-     * Obtém um {{modelName}} pelo ID
+     * Obtém um {{routeName}} pelo ID
      * 
-     * @param int $id
-     * @return {{modelName}}
-     * @throws {{exceptionName}}
+     * @param int $id ID do {{routeName}}
+     * @return {{modelName}} {{modelName}} encontrado
+     * @throws {{notFoundExceptionName}} Se o {{routeName}} não for encontrado
      */
     public function obter(int $id): {{modelName}}
     {
@@ -45,10 +56,10 @@ class {{serviceName}}
     }
 
     /**
-     * Inclui um novo {{modelName}}
+     * Cria um novo {{routeName}}
      * 
-     * @param {{dtoName}} $dto
-     * @return {{modelName}}
+     * @param {{dtoName}} $dto Objeto com os dados do {{routeName}}
+     * @return {{modelName}} {{modelName}} criado
      */
     public function incluir({{dtoName}} $dto): {{modelName}}
     {
@@ -64,12 +75,13 @@ class {{serviceName}}
     }
 
     /**
-     * Atualiza um {{modelName}} existente
+     * Atualiza um {{routeName}} existente
      *
-     * @param int $id
-     * @param {{dtoName}} $dto
-     * @return {{modelName}}
-     * @throws {{notFoundExceptionName}}
+     * @param int $id ID do {{routeName}} a ser atualizado
+     * @param {{dtoName}} $dto Objeto com os novos dados
+     * @return {{modelName}} {{modelName}} atualizado
+     * @throws {{notFoundExceptionName}} Se o {{routeName}} não for encontrado
+     * @throws {{exceptionName}} Se houver erro na atualização
      */
     public function atualizar(int $id, {{dtoName}} $dto): {{modelName}}
     {

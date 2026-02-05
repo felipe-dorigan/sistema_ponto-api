@@ -10,17 +10,27 @@ use Illuminate\Http\Request;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Validator;
 
+/**
+ * Controller responsável pelo gerenciamento de {{routeName}}s
+ * 
+ * Este controller gerencia todas as operações CRUD relacionadas aos {{routeName}}s.
+ */
 class {{controllerName}} extends Controller
 {
+    /**
+     * Construtor do controller
+     * 
+     * @param {{serviceName}} ${{variableName}}Service Serviço de {{routeName}}s injetado via DI
+     */
     public function __construct(
         private {{serviceName}} ${{variableName}}Service
     ) {}
 
     /**
-     * Lista todos os {{routeName}}s paginados
+     * Lista todos os {{routeName}}s com paginação
      * 
-     * @param Request $request
-     * @return JsonResponse
+     * @param Request $request Requisição contendo parâmetros de paginação
+     * @return JsonResponse Lista paginada de {{routeName}}s
      */
     public function listar(Request $request): JsonResponse
     {
@@ -43,8 +53,8 @@ class {{controllerName}} extends Controller
     /**
      * Cria um novo {{routeName}}
      * 
-     * @param Request $request
-     * @return JsonResponse
+     * @param Request $request Requisição contendo os dados do {{routeName}}
+     * @return JsonResponse {{modelName}} criado ou erro de validação
      */
     public function incluir(Request $request): JsonResponse
     {
@@ -78,10 +88,10 @@ class {{controllerName}} extends Controller
     }
 
     /**
-     * Busca um {{routeName}} específico
+     * Obtém um {{routeName}} específico pelo ID
      * 
-     * @param int $id
-     * @return JsonResponse
+     * @param int $id ID do {{routeName}}
+     * @return JsonResponse {{modelName}} encontrado ou erro
      */
     public function obterPorCodigo(int $id): JsonResponse
     {
