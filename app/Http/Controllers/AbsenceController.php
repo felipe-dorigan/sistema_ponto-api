@@ -10,17 +10,28 @@ use Illuminate\Http\Request;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Validator;
 
+/**
+ * Controller responsável pelo gerenciamento de ausências
+ * 
+ * Este controller gerencia todas as operações CRUD relacionadas às
+ * ausências dos funcionários (faltas, atestados, férias, etc).
+ */
 class AbsenceController extends Controller
 {
+    /**
+     * Construtor do controller
+     * 
+     * @param AbsenceService $absenceService Serviço de ausências injetado via DI
+     */
     public function __construct(
         private AbsenceService $absenceService
     ) {}
 
     /**
-     * Lista todos os absences paginados
+     * Lista todas as ausências com paginação
      * 
-     * @param Request $request
-     * @return JsonResponse
+     * @param Request $request Requisição contendo parâmetros de paginação
+     * @return JsonResponse Lista paginada de ausências
      */
     public function listar(Request $request): JsonResponse
     {
@@ -41,10 +52,10 @@ class AbsenceController extends Controller
     }
 
     /**
-     * Cria um novo absence
+     * Cria um novo registro de ausência
      * 
-     * @param Request $request
-     * @return JsonResponse
+     * @param Request $request Requisição contendo os dados da ausência
+     * @return JsonResponse Ausência criada ou erro de validação
      */
     public function incluir(Request $request): JsonResponse
     {
@@ -83,10 +94,10 @@ class AbsenceController extends Controller
     }
 
     /**
-     * Busca um absence específico
+     * Obtém uma ausência específica pelo ID
      * 
-     * @param int $id
-     * @return JsonResponse
+     * @param int $id ID da ausência
+     * @return JsonResponse Ausência encontrada ou erro
      */
     public function obterPorCodigo(int $id): JsonResponse
     {

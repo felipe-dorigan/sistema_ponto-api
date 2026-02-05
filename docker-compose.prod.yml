@@ -5,7 +5,7 @@ services:
     build:
       context: .
       dockerfile: docker/Dockerfile
-    container_name: transportadoras_app_prod
+    container_name: sistema_ponto_app_prod
     restart: unless-stopped
     tty: true
     environment:
@@ -23,7 +23,7 @@ services:
 
   nginx:
     image: nginx:alpine
-    container_name: transportadoras_nginx_prod
+    container_name: sistema_ponto_nginx_prod
     restart: unless-stopped
     tty: true
     ports:
@@ -40,11 +40,11 @@ services:
 
   db:
     image: postgres:15-alpine
-    container_name: transportadoras_postgres_prod
+    container_name: sistema_ponto_postgres_prod
     restart: unless-stopped
     tty: true
     environment:
-      POSTGRES_DB: ${DB_DATABASE:-transportadoras}
+      POSTGRES_DB: ${DB_DATABASE:-sistema_ponto}
       POSTGRES_USER: ${DB_USERNAME:-root}
       POSTGRES_PASSWORD: ${DB_PASSWORD:-password}
     volumes:
@@ -56,7 +56,7 @@ services:
 
   redis:
     image: redis:7-alpine
-    container_name: transportadoras_redis_prod
+    container_name: sistema_ponto_redis_prod
     restart: unless-stopped
     command: redis-server --appendonly yes --requirepass ${REDIS_PASSWORD:-secret}
     volumes:
@@ -70,7 +70,7 @@ services:
     build:
       context: .
       dockerfile: docker/Dockerfile
-    container_name: transportadoras_queue_prod
+    container_name: sistema_ponto_queue_prod
     restart: unless-stopped
     command: php artisan queue:work --sleep=3 --tries=3 --max-time=3600
     volumes:
@@ -85,7 +85,7 @@ services:
     build:
       context: .
       dockerfile: docker/Dockerfile
-    container_name: transportadoras_scheduler_prod
+    container_name: sistema_ponto_scheduler_prod
     restart: unless-stopped
     command: >
       bash -c "while true; do

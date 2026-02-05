@@ -9,17 +9,28 @@ use App\Exceptions\TimeRecordValidationException;
 use App\Exceptions\TimeRecordNotFoundException;
 use Illuminate\Pagination\LengthAwarePaginator;
 
+/**
+ * Service responsável pela lógica de negócio de registros de ponto
+ * 
+ * Esta classe contém as regras de negócio e validações para operações
+ * relacionadas aos registros de ponto dos funcionários.
+ */
 class TimeRecordService
 {
+    /**
+     * Construtor do serviço
+     * 
+     * @param TimeRecordRepository $time_recordRepository Repository de registros de ponto injetado via DI
+     */
     public function __construct(
         private TimeRecordRepository $time_recordRepository
     ) {}
 
     /**
-     * Lista todos os TimeRecords paginados
+     * Lista todos os registros de ponto com paginação
      * 
-     * @param int $perPage
-     * @return LengthAwarePaginator
+     * @param int $perPage Número de registros por página (padrão: 15)
+     * @return LengthAwarePaginator Lista paginada de registros
      */
     public function listar(int $perPage = 15): LengthAwarePaginator
     {
@@ -27,11 +38,11 @@ class TimeRecordService
     }
 
     /**
-     * Obtém um TimeRecord pelo ID
+     * Obtém um registro de ponto pelo ID
      * 
-     * @param int $id
-     * @return TimeRecord
-     * @throws TimeRecordValidationException
+     * @param int $id ID do registro de ponto
+     * @return TimeRecord Registro de ponto encontrado
+     * @throws TimeRecordNotFoundException Se o registro não for encontrado
      */
     public function obter(int $id): TimeRecord
     {
@@ -45,10 +56,10 @@ class TimeRecordService
     }
 
     /**
-     * Inclui um novo TimeRecord
+     * Cria um novo registro de ponto
      * 
-     * @param TimeRecordDTO $dto
-     * @return TimeRecord
+     * @param TimeRecordDTO $dto Objeto com os dados do registro
+     * @return TimeRecord Registro de ponto criado
      */
     public function incluir(TimeRecordDTO $dto): TimeRecord
     {
@@ -64,12 +75,13 @@ class TimeRecordService
     }
 
     /**
-     * Atualiza um TimeRecord existente
+     * Atualiza um registro de ponto existente
      *
-     * @param int $id
-     * @param TimeRecordDTO $dto
-     * @return TimeRecord
-     * @throws TimeRecordNotFoundException
+     * @param int $id ID do registro a ser atualizado
+     * @param TimeRecordDTO $dto Objeto com os novos dados
+     * @return TimeRecord Registro de ponto atualizado
+     * @throws TimeRecordNotFoundException Se o registro não for encontrado
+     * @throws TimeRecordValidationException Se houver erro na atualização
      */
     public function atualizar(int $id, TimeRecordDTO $dto): TimeRecord
     {

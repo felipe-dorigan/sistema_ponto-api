@@ -9,17 +9,28 @@ use App\Exceptions\AbsenceValidationException;
 use App\Exceptions\AbsenceNotFoundException;
 use Illuminate\Pagination\LengthAwarePaginator;
 
+/**
+ * Service responsável pela lógica de negócio de ausências
+ * 
+ * Esta classe contém as regras de negócio e validações para operações
+ * relacionadas às ausências dos funcionários (faltas, atestados, férias).
+ */
 class AbsenceService
 {
+    /**
+     * Construtor do serviço
+     * 
+     * @param AbsenceRepository $absenceRepository Repository de ausências injetado via DI
+     */
     public function __construct(
         private AbsenceRepository $absenceRepository
     ) {}
 
     /**
-     * Lista todos os Absences paginados
+     * Lista todas as ausências com paginação
      * 
-     * @param int $perPage
-     * @return LengthAwarePaginator
+     * @param int $perPage Número de registros por página (padrão: 15)
+     * @return LengthAwarePaginator Lista paginada de ausências
      */
     public function listar(int $perPage = 15): LengthAwarePaginator
     {
@@ -27,11 +38,11 @@ class AbsenceService
     }
 
     /**
-     * Obtém um Absence pelo ID
+     * Obtém uma ausência pelo ID
      * 
-     * @param int $id
-     * @return Absence
-     * @throws AbsenceValidationException
+     * @param int $id ID da ausência
+     * @return Absence Ausência encontrada
+     * @throws AbsenceNotFoundException Se a ausência não for encontrada
      */
     public function obter(int $id): Absence
     {
@@ -45,10 +56,10 @@ class AbsenceService
     }
 
     /**
-     * Inclui um novo Absence
+     * Cria um novo registro de ausência
      * 
-     * @param AbsenceDTO $dto
-     * @return Absence
+     * @param AbsenceDTO $dto Objeto com os dados da ausência
+     * @return Absence Ausência criada
      */
     public function incluir(AbsenceDTO $dto): Absence
     {
@@ -64,12 +75,13 @@ class AbsenceService
     }
 
     /**
-     * Atualiza um Absence existente
+     * Atualiza uma ausência existente
      *
-     * @param int $id
-     * @param AbsenceDTO $dto
-     * @return Absence
-     * @throws AbsenceNotFoundException
+     * @param int $id ID da ausência a ser atualizada
+     * @param AbsenceDTO $dto Objeto com os novos dados
+     * @return Absence Ausência atualizada
+     * @throws AbsenceNotFoundException Se a ausência não for encontrada
+     * @throws AbsenceValidationException Se houver erro na atualização
      */
     public function atualizar(int $id, AbsenceDTO $dto): Absence
     {

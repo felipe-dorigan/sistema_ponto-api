@@ -2,6 +2,12 @@
 
 namespace App\DTO;
 
+/**
+ * Data Transfer Object para registros de ponto
+ * 
+ * Este DTO encapsula os dados de registros de ponto transportados entre camadas,
+ * garantindo imutabilidade e type-safety.
+ */
 class TimeRecordDTO
 {
     public readonly int $user_id;
@@ -18,6 +24,23 @@ class TimeRecordDTO
     public readonly ?\Carbon\Carbon $lunch_start_recorded_at;
     public readonly ?\Carbon\Carbon $lunch_end_recorded_at;
 
+    /**
+     * Construtor do DTO
+     * 
+     * @param int $user_id ID do usuário/funcionário
+     * @param string $date Data do registro de ponto
+     * @param string|null $entry_time Horário de entrada
+     * @param string|null $exit_time Horário de saída
+     * @param string|null $lunch_start Início do almoço
+     * @param string|null $lunch_end Fim do almoço
+     * @param int $worked_minutes Minutos trabalhados
+     * @param int $expected_minutes Minutos esperados (padrão: 480 = 8h)
+     * @param string|null $notes Observações
+     * @param \Carbon\Carbon|null $entry_time_recorded_at Timestamp de registro da entrada
+     * @param \Carbon\Carbon|null $exit_time_recorded_at Timestamp de registro da saída
+     * @param \Carbon\Carbon|null $lunch_start_recorded_at Timestamp de registro do início do almoço
+     * @param \Carbon\Carbon|null $lunch_end_recorded_at Timestamp de registro do fim do almoço
+     */
     public function __construct(
         int $user_id,
         string $date,

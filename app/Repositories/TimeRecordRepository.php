@@ -5,12 +5,18 @@ namespace App\Repositories;
 use App\Models\TimeRecord;
 use Illuminate\Pagination\LengthAwarePaginator;
 
+/**
+ * Repository responsável pela persistência de dados de registros de ponto
+ * 
+ * Esta classe gerencia todas as operações de banco de dados relacionadas
+ * aos registros de ponto dos funcionários.
+ */
 class TimeRecordRepository extends Repository
 {
     /**
-     * TimeRecordRepository constructor.
+     * Construtor do repository
      * 
-     * @param TimeRecord $time_record
+     * @param TimeRecord $time_record Model de registro de ponto injetado via DI
      */
     public function __construct(TimeRecord $time_record)
     {
@@ -18,10 +24,10 @@ class TimeRecordRepository extends Repository
     }
 
     /**
-     * Lista TimeRecords paginados
+     * Lista registros de ponto com paginação
      * 
-     * @param int $perPage
-     * @return LengthAwarePaginator
+     * @param int $perPage Número de registros por página (padrão: 15)
+     * @return LengthAwarePaginator Lista paginada de registros
      */
     public function listar(int $perPage = 15): LengthAwarePaginator
     {
@@ -31,10 +37,10 @@ class TimeRecordRepository extends Repository
     }
 
     /**
-     * Busca TimeRecord por ID
+     * Busca um registro de ponto pelo ID
      * 
-     * @param int $id
-     * @return TimeRecord|null
+     * @param int $id ID do registro de ponto
+     * @return TimeRecord|null Registro encontrado ou null
      */
     public function obterPorId(int $id): ?TimeRecord
     {
@@ -42,10 +48,10 @@ class TimeRecordRepository extends Repository
     }
 
     /**
-     * Cria um novo TimeRecord
+     * Cria um novo registro de ponto
      * 
-     * @param array $dados
-     * @return TimeRecord
+     * @param array $dados Dados do registro de ponto
+     * @return TimeRecord Registro criado
      */
     public function incluir(array $dados): TimeRecord
     {

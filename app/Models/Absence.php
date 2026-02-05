@@ -6,6 +6,25 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
+/**
+ * Model de Ausência
+ * 
+ * Representa uma ausência de um funcionário, como falta, atestado,
+ * férias ou licença médica.
+ * 
+ * @property int $id
+ * @property int $user_id
+ * @property \Illuminate\Support\Carbon $date
+ * @property \Illuminate\Support\Carbon $start_time
+ * @property \Illuminate\Support\Carbon $end_time
+ * @property string $reason
+ * @property string $description
+ * @property string $status
+ * @property int|null $approved_by
+ * @property \Illuminate\Support\Carbon|null $approved_at
+ * @property \Illuminate\Support\Carbon|null $created_at
+ * @property \Illuminate\Support\Carbon|null $updated_at
+ */
 class Absence extends Model
 {
     use HasFactory;
@@ -68,11 +87,21 @@ class Absence extends Model
     // RELATIONSHIPS
     // ====================
 
+    /**
+     * Relacionamento com o usuário que possui a ausência
+     * 
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
     public function user()
     {
         return $this->belongsTo(User::class, 'user_id');
     }
 
+    /**
+     * Relacionamento com o usuário que aprovou a ausência
+     * 
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
     public function approver()
     {
         return $this->belongsTo(User::class, 'approved_by');

@@ -5,10 +5,18 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
+/**
+ * Controller responsável pela autenticação de usuários
+ * 
+ * Gerencia login, logout e operações relacionadas a tokens JWT.
+ */
 class AuthController extends Controller
 {
     /**
-     * Login do usuário e geração do token JWT
+     * Realiza login do usuário e gera token JWT
+     * 
+     * @param Request $request Requisição contendo email e password
+     * @return \Illuminate\Http\JsonResponse Token de acesso ou erro de autenticação
      */
     public function login(Request $request)
     {
@@ -22,7 +30,9 @@ class AuthController extends Controller
     }
 
     /**
-     * Retorna os dados do usuário logado
+     * Retorna os dados do usuário autenticado
+     * 
+     * @return \Illuminate\Http\JsonResponse Dados do usuário logado
      */
     public function me()
     {
@@ -30,7 +40,9 @@ class AuthController extends Controller
     }
 
     /**
-     * Faz logout (invalida o token)
+     * Realiza logout do usuário e invalida o token JWT
+     * 
+     * @return \Illuminate\Http\JsonResponse Mensagem de sucesso
      */
     public function logout()
     {
@@ -40,7 +52,10 @@ class AuthController extends Controller
     }
 
     /**
-     * Estrutura padrão da resposta com token
+     * Formata a resposta contendo o token JWT
+     * 
+     * @param string $token Token JWT gerado
+     * @return \Illuminate\Http\JsonResponse Resposta formatada com token e metadados
      */
     protected function respondWithToken($token)
     {

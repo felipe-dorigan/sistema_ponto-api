@@ -9,12 +9,35 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 use Throwable;
 
+/**
+ * Service responsável pela lógica de negócio relacionada a usuários
+ * 
+ * Esta classe contém as regras de negócio e validações para operações
+ * relacionadas aos usuários, servindo como camada intermediária entre
+ * o Controller e o Repository.
+ */
 class UserService
 {
+    /**
+     * Construtor do serviço
+     * 
+     * @param UserRepository $userRepository Repository de usuários injetado via DI
+     */
     public function __construct(protected UserRepository $userRepository)
     {
     }
 
+    /**
+     * Cria um novo usuário no sistema
+     * 
+     * Aplica regras de negócio como validação de limite de usuários,
+     * criptografia de senha e transação de banco de dados.
+     * 
+     * @param UserDTO $dto Objeto de transferência de dados contendo informações do usuário
+     * @return \App\Models\User Retorna o usuário criado
+     * @throws UserLimitExceededException Quando o limite de usuários é atingido
+     * @throws \Exception Em caso de erro na criação
+     */
     public function incluir(UserDTO $dto)
     {
         try {
@@ -62,6 +85,14 @@ class UserService
         }
     }
 
+    /**
+     * Atualiza os dados de um usuário existente
+     * 
+     * @param int $id ID do usuário a ser atualizado
+     * @param array $dados Array com os dados a serem atualizados
+     * @return \App\Models\User|null Retorna o usuário atualizado ou null se não encontrado
+     * @throws \Exception Em caso de erro na atualização
+     */
     public function atualizar(int $id, array $dados)
     {
         try {
@@ -91,11 +122,23 @@ class UserService
         }
     }
 
+    /**
+     * Obtém um usuário pelo ID
+     * 
+     * @param int $id ID do usuário
+     * @return \App\Models\User|null Retorna o usuário ou null se não encontrado
+     */
     public function obterPorCodigo(int $id)
     {
         return $this->userRepository->obterPorCodigo($id);
     }
 
+    /**
+     * Lista todos os usuários com paginação
+     * 
+     * @return \Illuminate\Pagination\LengthAwarePaginator Lista paginada de usuários
+     * @throws \Exception Em caso de erro na listagem
+     */
     public function listar()
     {
         try {
@@ -110,6 +153,13 @@ class UserService
         }
     }
 
+    /**
+     * Exclui um usuário do sistema
+     * 
+     * @param int $id ID do usuário a ser excluído
+     * @return bool Retorna true se excluído com sucesso, false se não encontrado
+     * @throws \Exception Em caso de erro na exclusão
+     */
     public function excluir(int $id)
     {
         try {

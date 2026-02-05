@@ -9,12 +9,29 @@ use App\Models\User;
 use App\Services\UserService;
 use Illuminate\Http\JsonResponse;
 
+/**
+ * Controller responsável pelo gerenciamento de usuários
+ * 
+ * Este controller gerencia todas as operações CRUD relacionadas aos usuários,
+ * incluindo criação, atualização, listagem e exclusão.
+ */
 class UserController extends Controller
 {
+    /**
+     * Construtor do controller
+     * 
+     * @param UserService $userService Serviço de usuários injetado via DI
+     */
     public function __construct(private readonly UserService $userService)
     {
     }
 
+    /**
+     * Cria um novo usuário no sistema
+     * 
+     * @param UserRequest $request Requisição validada contendo os dados do usuário
+     * @return JsonResponse Retorna o usuário criado ou erro
+     */
     public function incluir(UserRequest $request): JsonResponse
     {
         try {
@@ -39,6 +56,13 @@ class UserController extends Controller
         }
     }
 
+    /**
+     * Atualiza os dados de um usuário existente
+     * 
+     * @param UserRequest $request Requisição validada com os novos dados
+     * @param User $user Usuário a ser atualizado (injetado via route model binding)
+     * @return JsonResponse Retorna o usuário atualizado ou erro
+     */
     public function atualizar(UserRequest $request, User $user): JsonResponse
     {
         try {
@@ -67,12 +91,23 @@ class UserController extends Controller
         }
     }
 
+    /**
+     * Obtém um usuário específico pelo ID
+     * 
+     * @param User $user Usuário a ser retornado (injetado via route model binding)
+     * @return UserResource Retorna os dados do usuário
+     */
     public function obterPorCodigo(User $user)
     {
         // O Model Binding do Laravel já busca o usuário para nós.
         return new UserResource($user);
     }
 
+    /**
+     * Lista todos os usuários do sistema com paginação
+     * 
+     * @return JsonResponse Retorna a lista paginada de usuários
+     */
     public function listar(): JsonResponse
     {
         try {
@@ -102,6 +137,12 @@ class UserController extends Controller
         }
     }
 
+    /**
+     * Exclui um usuário do sistema
+     * 
+     * @param User $user Usuário a ser excluído (injetado via route model binding)
+     * @return JsonResponse Retorna status 204 em caso de sucesso ou erro
+     */
     public function excluir(User $user): JsonResponse
     {
         try {

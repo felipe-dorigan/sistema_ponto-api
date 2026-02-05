@@ -1,6 +1,6 @@
-# API de Gerenciamento de Transportadoras
+# Sistema de Controle de Ponto API
 
-API desenvolvida em Laravel para gerenciar transportadoras. O ambiente do gerencia é totalmente containerizado usando Docker.
+API desenvolvida em Laravel para controle de ponto de funcionários. O ambiente é totalmente containerizado usando Docker.
 
 ## Tecnologias Utilizadas
 
@@ -21,8 +21,8 @@ Siga os passos abaixo para configurar e executar o projeto localmente.
 ### 1. Clonar o Repositório
 
 ```bash
-git clone https://github.com/Dotplan-Sistemas/transportadoras-gerencia-api.git>
-cd transportadoras-gerencia-api
+git clone https://github.com/felipe-dorigan/sistema-ponto-api.git
+cd sistema-ponto-api
 ```
 
 ### 2. Configurar o Arquivo de Ambiente (.env)

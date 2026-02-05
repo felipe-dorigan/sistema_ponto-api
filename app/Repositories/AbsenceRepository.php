@@ -5,12 +5,18 @@ namespace App\Repositories;
 use App\Models\Absence;
 use Illuminate\Pagination\LengthAwarePaginator;
 
+/**
+ * Repository responsável pela persistência de dados de ausências
+ * 
+ * Esta classe gerencia todas as operações de banco de dados relacionadas
+ * às ausências dos funcionários (faltas, atestados, férias).
+ */
 class AbsenceRepository extends Repository
 {
     /**
-     * AbsenceRepository constructor.
+     * Construtor do repository
      * 
-     * @param Absence $absence
+     * @param Absence $absence Model de ausência injetado via DI
      */
     public function __construct(Absence $absence)
     {
@@ -18,10 +24,10 @@ class AbsenceRepository extends Repository
     }
 
     /**
-     * Lista Absences paginados
+     * Lista ausências com paginação
      * 
-     * @param int $perPage
-     * @return LengthAwarePaginator
+     * @param int $perPage Número de registros por página (padrão: 15)
+     * @return LengthAwarePaginator Lista paginada de ausências
      */
     public function listar(int $perPage = 15): LengthAwarePaginator
     {
@@ -31,10 +37,10 @@ class AbsenceRepository extends Repository
     }
 
     /**
-     * Busca Absence por ID
+     * Busca uma ausência pelo ID
      * 
-     * @param int $id
-     * @return Absence|null
+     * @param int $id ID da ausência
+     * @return Absence|null Ausência encontrada ou null
      */
     public function obterPorId(int $id): ?Absence
     {
@@ -42,10 +48,10 @@ class AbsenceRepository extends Repository
     }
 
     /**
-     * Cria um novo Absence
+     * Cria um novo registro de ausência
      * 
-     * @param array $dados
-     * @return Absence
+     * @param array $dados Dados da ausência
+     * @return Absence Ausência criada
      */
     public function incluir(array $dados): Absence
     {

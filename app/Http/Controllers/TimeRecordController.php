@@ -10,17 +10,28 @@ use Illuminate\Http\Request;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Validator;
 
+/**
+ * Controller responsável pelo gerenciamento de registros de ponto
+ * 
+ * Este controller gerencia todas as operações CRUD relacionadas aos
+ * registros de ponto dos funcionários.
+ */
 class TimeRecordController extends Controller
 {
+    /**
+     * Construtor do controller
+     * 
+     * @param TimeRecordService $time_recordService Serviço de registros de ponto injetado via DI
+     */
     public function __construct(
         private TimeRecordService $time_recordService
     ) {}
 
     /**
-     * Lista todos os time-records paginados
+     * Lista todos os registros de ponto com paginação
      * 
-     * @param Request $request
-     * @return JsonResponse
+     * @param Request $request Requisição contendo parâmetros de paginação
+     * @return JsonResponse Lista paginada de registros de ponto
      */
     public function listar(Request $request): JsonResponse
     {
@@ -41,10 +52,10 @@ class TimeRecordController extends Controller
     }
 
     /**
-     * Cria um novo time-record
+     * Cria um novo registro de ponto
      * 
-     * @param Request $request
-     * @return JsonResponse
+     * @param Request $request Requisição contendo os dados do registro de ponto
+     * @return JsonResponse Registro de ponto criado ou erro de validação
      */
     public function incluir(Request $request): JsonResponse
     {
@@ -89,10 +100,10 @@ class TimeRecordController extends Controller
     }
 
     /**
-     * Busca um time-record específico
+     * Obtém um registro de ponto específico pelo ID
      * 
-     * @param int $id
-     * @return JsonResponse
+     * @param int $id ID do registro de ponto
+     * @return JsonResponse Registro de ponto encontrado ou erro
      */
     public function obterPorCodigo(int $id): JsonResponse
     {

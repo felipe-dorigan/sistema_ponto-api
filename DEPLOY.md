@@ -1,11 +1,11 @@
-# 🚀 Guia de Deploy - Transportadoras API
+# 🚀 Guia de Deploy - Sistema de Ponto API
 
 ## 📋 Pré-requisitos
 
--   **Docker** 20.10+
--   **Docker Compose** 2.0+
--   **Git** 2.30+
--   **Make** (opcional, mas recomendado)
+- **Docker** 20.10+
+- **Docker Compose** 2.0+
+- **Git** 2.30+
+- **Make** (opcional, mas recomendado)
 
 ## 🏗️ Ambientes Disponíveis
 
@@ -79,7 +79,7 @@ php artisan jwt:secret
 db:
     image: postgres:15-alpine
     environment:
-        POSTGRES_DB: transportadoras
+        POSTGRES_DB: sistema_ponto
         POSTGRES_USER: postgres
         POSTGRES_PASSWORD: ${DB_PASSWORD}
     volumes:
@@ -93,7 +93,6 @@ db:
 O projeto inclui workflows automatizados:
 
 1. **Tests Workflow** (`.github/workflows/tests.yml`)
-
     - Executa em: Push/PR para `main`
     - Testa: PHP 8.2, PostgreSQL 15
     - Inclui: Testes unitários, integração, coverage
@@ -117,9 +116,6 @@ DOCKER_PASSWORD=your_docker_password
 ```bash
 # Build local
 docker-compose build
-
-# Pull da registry
-docker pull dotplan/transportadoras-api:latest
 ```
 
 ### Production
@@ -129,7 +125,7 @@ docker pull dotplan/transportadoras-api:latest
 docker-compose -f docker-compose.prod.yml build
 
 # Multi-stage build com otimizações
-docker build -f docker/Dockerfile.prod -t transportadoras-api:prod .
+docker build -f docker/Dockerfile.prod -t sistema-ponto-api:prod .
 ```
 
 ## 🔧 Comandos Úteis
@@ -223,14 +219,14 @@ tail -f storage/logs/laravel.log
 
 ### Antes do Deploy em Produção
 
--   [ ] `APP_DEBUG=false`
--   [ ] `APP_ENV=production`
--   [ ] Chave JWT única e segura
--   [ ] Senhas do banco forte
--   [ ] SSL/TLS configurado
--   [ ] Firewall configurado
--   [ ] Backup automático configurado
--   [ ] Monitoramento configurado
+- [ ] `APP_DEBUG=false`
+- [ ] `APP_ENV=production`
+- [ ] Chave JWT única e segura
+- [ ] Senhas do banco forte
+- [ ] SSL/TLS configurado
+- [ ] Firewall configurado
+- [ ] Backup automático configurado
+- [ ] Monitoramento configurado
 
 ### Configurações de Segurança
 
@@ -262,7 +258,7 @@ make backup-db
 make restore-db FILE=./backups/backup_20250115_103000.sql
 
 # Restore via Docker
-docker-compose exec -T postgres psql -U postgres -d transportadoras < backup.sql
+docker-compose exec -T postgres psql -U postgres -d sistema_ponto < backup.sql
 ```
 
 ## 🚨 Troubleshooting
@@ -321,9 +317,9 @@ make restore-db FILE=./backups/pre_deploy_backup.sql
 
 ## 📞 Suporte
 
--   **Documentação**: [README.md](./README.md)
--   **Issues**: [GitHub Issues](https://github.com/seu-usuario/transportadoras-api/issues)
--   **CI/CD Status**: [GitHub Actions](https://github.com/seu-usuario/transportadoras-api/actions)
+- **Documentação**: [README.md](./README.md)
+- **Issues**: [GitHub Issues](https://github.com/felipe-dorigan/sistema-ponto-api/issues)
+- **CI/CD Status**: [GitHub Actions](https://github.com/felipe-dorigan/sistema-ponto-api/actions)
 
 ## 📈 Próximos Passos
 

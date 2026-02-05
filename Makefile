@@ -1,4 +1,4 @@
-# Makefile para Transportadoras API
+# Makefile para Sistema de Ponto API
 # Facilita comandos comuns de desenvolvimento e deploy
 
 .PHONY: help install start stop restart logs test build deploy clean
@@ -15,7 +15,7 @@ DOCKER_COMPOSE_PROD := docker-compose -f docker-compose.prod.yml
 
 ## help: Mostra esta mensagem de ajuda
 help:
-	@echo "$(YELLOW)Transportadoras API - Comandos Disponíveis:$(NC)"
+	@echo "$(YELLOW)Sistema de Ponto API - Comandos Disponíveis:$(NC)"
 	@echo ""
 	@sed -n 's/^##//p' $(MAKEFILE_LIST) | column -t -s ':' | sed -e 's/^/ /'
 	@echo ""
@@ -125,7 +125,7 @@ shell:
 
 ## db-shell: Acessa o shell do PostgreSQL
 db-shell:
-	$(DOCKER_COMPOSE) exec postgres psql -U postgres -d transportadoras_db
+	$(DOCKER_COMPOSE) exec postgres psql -U postgres -d sistema_ponto_db
 
 ## clean: Remove containers, volumes e imagens não utilizadas
 clean:
@@ -150,11 +150,11 @@ logs-db:
 backup-db:
 	@echo "$(GREEN)💾 Criando backup do banco...$(NC)"
 	mkdir -p ./backups
-	$(DOCKER_COMPOSE) exec -T postgres pg_dump -U postgres transportadoras_db > ./backups/backup_$(shell date +%Y%m%d_%H%M%S).sql
+	$(DOCKER_COMPOSE) exec -T postgres pg_dump -U postgres sistema_ponto_db > ./backups/backup_$(shell date +%Y%m%d_%H%M%S).sql
 	@echo "$(GREEN)✅ Backup criado em ./backups/$(NC)"
 
 ## restore-db: Restaura backup do banco (use: make restore-db FILE=backup.sql)
 restore-db:
 	@echo "$(GREEN)📥 Restaurando backup do banco...$(NC)"
-	$(DOCKER_COMPOSE) exec -T postgres psql -U postgres -d transportadoras_db < $(FILE)
+	$(DOCKER_COMPOSE) exec -T postgres psql -U postgres -d sistema_ponto_db < $(FILE)
 	@echo "$(GREEN)✅ Backup restaurado!$(NC)"

@@ -2,6 +2,12 @@
 
 namespace App\DTO;
 
+/**
+ * Data Transfer Object para ausências
+ * 
+ * Este DTO encapsula os dados de ausências (faltas, atestados, férias)
+ * transportados entre camadas, garantindo imutabilidade e type-safety.
+ */
 class AbsenceDTO
 {
     public readonly string $date;
@@ -11,6 +17,16 @@ class AbsenceDTO
     public readonly string $description;
     public readonly string $approved_at;
 
+    /**
+     * Construtor do DTO
+     * 
+     * @param string $date Data da ausência
+     * @param string $start_time Horário de início da ausência
+     * @param string $end_time Horário de fim da ausência
+     * @param string $reason Motivo da ausência
+     * @param string $description Descrição detalhada
+     * @param string $approved_at Data/hora de aprovação
+     */
     public function __construct(
         string $date,
         string $start_time,

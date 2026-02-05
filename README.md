@@ -1,12 +1,10 @@
-# 🚀 API de Gerenciamento de Transportadoras
+# 🚀 Sistema de Controle de Ponto API
 
-[![Tests](https://github.com/Dotplan-Sistemas/transportadoras-gerencia-api/actions/workflows/tests.yml/badge.svg)](https://github.com/Dotplan-Sistemas/transportadoras-gerencia-api/actions/workflows/tests.yml)
-[![Deploy](https://github.com/Dotplan-Sistemas/transportadoras-gerencia-api/actions/workflows/deploy.yml/badge.svg)](https://github.com/Dotplan-Sistemas/transportadoras-gerencia-api/actions/workflows/deploy.yml)
 [![PHP](https://img.shields.io/badge/PHP-8.2+-777BB4?style=flat&logo=php)](https://php.net)
 [![Laravel](https://img.shields.io/badge/Laravel-10.x-FF2D20?style=flat&logo=laravel)](https://laravel.com)
 [![PostgreSQL](https://img.shields.io/badge/PostgreSQL-15+-336791?style=flat&logo=postgresql)](https://postgresql.org)
 [![Docker](https://img.shields.io/badge/Docker-Ready-2496ED?style=flat&logo=docker)](https://docker.com)
-[![Coverage](https://img.shields.io/badge/Coverage-100%25-brightgreen?style=flat)](https://github.com/Dotplan-Sistemas/transportadoras-gerencia-api)
+[![Coverage](https://img.shields.io/badge/Coverage-100%25-brightgreen?style=flat)](#)
 [![License](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
 
 > API RESTful moderna desenvolvida em Laravel com arquitetura em camadas, autenticação JWT, testes automatizados e ambiente totalmente containerizado.
@@ -15,34 +13,34 @@
 
 **✅ PRODUÇÃO READY** - Todos os testes passando, CI/CD configurado, documentação completa
 
--   ✅ **13 Testes** (100% passing)
--   ✅ **Arquitetura Limpa** (Repository + Service + DTO)
--   ✅ **JWT Auth** implementado e testado
--   ✅ **Docker** environment completo
--   ✅ **CI/CD Pipeline** GitHub Actions
--   ✅ **Health Checks** e monitoring
--   ✅ **Documentação** completa
+- ✅ **13 Testes** (100% passing)
+- ✅ **Arquitetura Limpa** (Repository + Service + DTO)
+- ✅ **JWT Auth** implementado e testado
+- ✅ **Docker** environment completo
+- ✅ **CI/CD Pipeline** GitHub Actions
+- ✅ **Health Checks** e monitoring
+- ✅ **Documentação** completa
 
 ## ✨ Características
 
--   🏗️ **Arquitetura em Camadas**: Repository Pattern, Service Layer e DTOs
--   🔐 **Autenticação JWT**: Sistema seguro com tokens JWT
--   ✅ **Testes Completos**: 13 testes (unitários + integração) com 100% de cobertura
--   🐳 **Docker**: Ambiente completamente containerizado
--   📊 **Logging**: Sistema estruturado de logs com schema separado
--   🚀 **CI/CD**: Pipeline automatizado com GitHub Actions
--   🏥 **Health Checks**: Endpoints de monitoramento da aplicação
+- 🏗️ **Arquitetura em Camadas**: Repository Pattern, Service Layer e DTOs
+- 🔐 **Autenticação JWT**: Sistema seguro com tokens JWT
+- ✅ **Testes Completos**: 13 testes (unitários + integração) com 100% de cobertura
+- 🐳 **Docker**: Ambiente completamente containerizado
+- 📊 **Logging**: Sistema estruturado de logs com schema separado
+- 🚀 **CI/CD**: Pipeline automatizado com GitHub Actions
+- 🏥 **Health Checks**: Endpoints de monitoramento da aplicação
 
 ## 🛠️ Tecnologias Utilizadas
 
--   **PHP 8.2+** - Linguagem moderna com tipagem forte
--   **Laravel 10.x** - Framework robusto e elegante
--   **PostgreSQL 15+** - Banco de dados relacional avançado
--   **Nginx** - Servidor web de alta performance
--   **Docker** - Containerização completa
--   **Redis** - Cache e sessões
--   **JWT** - Autenticação stateless
--   **PHPUnit** - Testes automatizados
+- **PHP 8.2+** - Linguagem moderna com tipagem forte
+- **Laravel 10.x** - Framework robusto e elegante
+- **PostgreSQL 15+** - Banco de dados relacional avançado
+- **Nginx** - Servidor web de alta performance
+- **Docker** - Containerização completa
+- **Redis** - Cache e sessões
+- **JWT** - Autenticação stateless
+- **PHPUnit** - Testes automatizados
 
 ## 📋 Pré-requisitos
 
@@ -61,20 +59,20 @@ Antes de começar, certifique-se de ter o [Docker](https://www.docker.com/get-st
 
 ### Padrões Implementados
 
--   **Repository Pattern**: Abstração da camada de dados
--   **Service Layer**: Lógica de negócio isolada
--   **DTO Pattern**: Transferência segura de dados
--   **Form Request Validation**: Validação centralizada
--   **Resource Pattern**: Serialização consistente
--   **Exception Handling**: Tratamento estruturado de erros
+- **Repository Pattern**: Abstração da camada de dados
+- **Service Layer**: Lógica de negócio isolada
+- **DTO Pattern**: Transferência segura de dados
+- **Form Request Validation**: Validação centralizada
+- **Resource Pattern**: Serialização consistente
+- **Exception Handling**: Tratamento estruturado de erros
 
 ## 🚀 Instalação Rápida
 
 ### 1. Clone o Repositório
 
 ```bash
-git clone https://github.com/Dotplan-Sistemas/transportadoras-gerencia-api.git
-cd transportadoras-gerencia-api
+git clone https://github.com/felipe-dorigan/sistema-ponto-api.git
+cd sistema-ponto-api
 ```
 
 ### 2. Configure o Ambiente
@@ -110,9 +108,9 @@ docker-compose exec app php artisan db:seed --force
 
 ### 5. ✅ Pronto!
 
--   **API**: http://localhost:8080
--   **Banco Dev**: localhost:5433 (postgres/postgres/acesse)
--   **Banco Test**: localhost:5434 (postgres/postgres/acesse)
+- **API**: http://localhost:8080
+- **Banco Dev**: localhost:5433 (postgres/postgres/acesse)
+- **Banco Test**: localhost:5434 (postgres/postgres/acesse)
 
 ## 🧪 Testes
 
@@ -120,9 +118,9 @@ A aplicação inclui testes unitários e de integração para garantir a qualida
 
 ### 5. ✅ Pronto!
 
--   **API**: http://localhost:8080
--   **Banco Dev**: localhost:5433 (postgres/postgres/acesse)
--   **Banco Test**: localhost:5434 (postgres/postgres/acesse)
+- **API**: http://localhost:8080
+- **Banco Dev**: localhost:5433 (postgres/postgres/acesse)
+- **Banco Test**: localhost:5434 (postgres/postgres/acesse)
 
 ## 📚 Uso da API
 
@@ -152,10 +150,10 @@ docker-compose exec app php artisan test --verbose
 
 O projeto possui ambiente de teste isolado:
 
--   **Banco separado**: PostgreSQL na porta 5434
--   **Migrations automáticas**: RefreshDatabase trait
--   **Seeds de teste**: Dados limpos para cada teste
--   **Mocking**: Testes unitários isolados
+- **Banco separado**: PostgreSQL na porta 5434
+- **Migrations automáticas**: RefreshDatabase trait
+- **Seeds de teste**: Dados limpos para cada teste
+- **Mocking**: Testes unitários isolados
 
 ```bash
 # Configurar ambiente de teste manualmente
@@ -174,7 +172,7 @@ A API utiliza autenticação JWT. Primeiro, faça login para obter o token:
 curl -X POST http://localhost:8080/api/login \
   -H "Content-Type: application/json" \
   -d '{
-    "email": "transporte.gerencia@dotplan.com",
+    "email": "usuario@example.com",
     "password": "03139596"
   }'
 ```
@@ -289,10 +287,10 @@ docker-compose exec app php artisan test tests/Feature/UserCrudTest.php
 
 O projeto possui ambiente de teste isolado:
 
--   **Banco separado**: PostgreSQL na porta 5434
--   **Migrations automáticas**: RefreshDatabase trait
--   **Seeds de teste**: Dados limpos para cada teste
--   **Mocking**: Testes unitários isolados
+- **Banco separado**: PostgreSQL na porta 5434
+- **Migrations automáticas**: RefreshDatabase trait
+- **Seeds de teste**: Dados limpos para cada teste
+- **Mocking**: Testes unitários isolados
 
 ```bash
 # Configurar ambiente de teste manualmente
@@ -306,9 +304,9 @@ O projeto possui ambiente de teste isolado:
 
 O projeto possui **3 comandos Artisan personalizados** que automatizam completamente a criação e remoção de estruturas MVC:
 
--   `criar:migration-customizada` - Cria migrations padronizadas
--   `gerar:estrutura` - Gera arquitetura completa (12 arquivos)
--   `remover:estrutura` - Remove estruturas com rollback seguro
+- `criar:migration-customizada` - Cria migrations padronizadas
+- `gerar:estrutura` - Gera arquitetura completa (12 arquivos)
+- `remover:estrutura` - Remove estruturas com rollback seguro
 
 **Recursos:** Repository + Service + DTO + Tests + Rotas autenticadas + Rollback automático
 
@@ -340,8 +338,7 @@ database/
 
 ## 👥 Equipe
 
--   **Desenvolvedor Principal**: [Felipe](https://github.com/felipe-dorigan)
--   **Empresa**: [Dotplan Sistemas](https://dotplan.com.br)
+- **Desenvolvedor Principal**: [Felipe](https://github.com/felipe-dorigan)
 
 ---
 
@@ -349,7 +346,7 @@ database/
 
 **Desenvolvido usando Laravel & Docker**
 
-[📖 Documentação](https://laravel.com/docs) • [🐛 Reportar Bug](https://github.com/Dotplan-Sistemas/transportadoras-gerencia-api/issues) • [💡 Solicitar Feature](https://github.com/Dotplan-Sistemas/transportadoras-gerencia-api/issues)
+[📖 Documentação](https://laravel.com/docs) • [🐛 Reportar Bug](https://github.com/felipe-dorigan/sistema-ponto-api/issues) • [💡 Solicitar Feature](https://github.com/seu-usuario/sistema-ponto-api/issues)
 
 </div>
 ````

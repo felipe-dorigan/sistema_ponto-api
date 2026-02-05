@@ -10,6 +10,25 @@ use Illuminate\Notifications\Notifiable;
 use PHPOpenSourceSaver\JWTAuth\Contracts\JWTSubject;
 use Illuminate\Support\Facades\Hash;
 
+/**
+ * Model de Usuário
+ * 
+ * Representa um usuário/funcionário do sistema de controle de ponto.
+ * Implementa autenticação JWT e gerencia relacionamentos com registros
+ * de ponto e ausências.
+ * 
+ * @property int $id
+ * @property string $name
+ * @property string $email
+ * @property string $password
+ * @property string $role
+ * @property int $daily_work_hours
+ * @property int $lunch_duration
+ * @property bool $active
+ * @property \Illuminate\Support\Carbon|null $email_verified_at
+ * @property \Illuminate\Support\Carbon|null $created_at
+ * @property \Illuminate\Support\Carbon|null $updated_at
+ */
 class User extends Authenticatable implements JWTSubject
 {
     use HasFactory, Notifiable;
@@ -52,9 +71,11 @@ class User extends Authenticatable implements JWTSubject
     ];
 
     /**
-     * Sempre criptografa a senha quando ela for definida no modelo.
+     * Accessor/Mutator para senha
+     * 
+     * Automaticamente criptografa a senha ao ser definida.
      *
-     * @return \Illuminate\Database\Eloquent\Casts\Attribute
+     * @return Attribute Atributo configurado para criptografar senha
      */
     protected function password(): Attribute
     {
@@ -64,7 +85,9 @@ class User extends Authenticatable implements JWTSubject
     }
 
     /**
-     * Get the identifier that will be stored in the subject claim of the JWT.
+     * Obtém o identificador que será armazenado no subject claim do JWT
+     * 
+     * @return mixed Identificador do usuário (geralmente o ID)
      */
     public function getJWTIdentifier()
     {
@@ -72,15 +95,23 @@ class User extends Authenticatable implements JWTSubject
     }
 
     /**
-     * Return a key value array, containing any custom claims to be added to the JWT.
+     * Retorna um array de claims customizados para o JWT
+     * 
+     * @return array Claims adicionais para o token
      */
     public function getJWTCustomClaims()
     {
         return [];
     }
 
+    // ====================
+    // RELATIONSHIPS
+    // ====================
+
     /**
      * Relacionamento com registros de ponto
+     * 
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
     public function timeRecords()
     {
@@ -89,14 +120,22 @@ class User extends Authenticatable implements JWTSubject
 
     /**
      * Relacionamento com ausências
+     * 
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
     public function absences()
     {
         return $this->hasMany(Absence::class);
     }
 
+    // ====================
+    // HELPER METHODS
+    // ====================
+
     /**
-     * Verifica se o usuário é admin
+     * Verifica se o usuário tem perfil de administrador
+     * 
+     * @return bool True se for admin, false caso contrário
      */
     public function isAdmin(): bool
     {
@@ -104,7 +143,9 @@ class User extends Authenticatable implements JWTSubject
     }
 
     /**
-     * Calcula o banco de horas total do usuário
+     * Calcula o saldo total de horas do usuário (banco de horas)
+     * 
+     * @return float Saldo de horas (positivo = crédito, negativo = débito)
      */
     public function getTotalHoursBalance(): float
     {

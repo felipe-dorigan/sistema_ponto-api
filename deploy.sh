@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# Deploy Script para Transportadoras API
+# Deploy Script para Sistema de Ponto API
 # Este script automatiza o processo de deploy da aplicação
 
 set -e
@@ -41,9 +41,9 @@ log "📦 Criando backup do banco de dados..."
 mkdir -p "$BACKUP_DIR"
 
 if [ "$ENVIRONMENT" = "production" ]; then
-    docker-compose -f docker-compose.prod.yml exec -T db pg_dump -U root transportadoras > "$BACKUP_DIR/database_backup.sql"
+    docker-compose -f docker-compose.prod.yml exec -T db pg_dump -U root sistema_ponto > "$BACKUP_DIR/database_backup.sql"
 else
-    docker-compose exec -T postgres pg_dump -U postgres transportadoras_db > "$BACKUP_DIR/database_backup.sql"
+    docker-compose exec -T postgres pg_dump -U postgres sistema_ponto_db > "$BACKUP_DIR/database_backup.sql"
 fi
 
 # 2. Atualizar código do repositório
@@ -93,7 +93,7 @@ log "🏥 Executando testes de saúde..."
 sleep 10
 
 if [ "$ENVIRONMENT" = "production" ]; then
-    HEALTH_URL="https://api.transportadoras.com/health"
+    HEALTH_URL="https://api.example.com/health"
 else
     HEALTH_URL="http://localhost/health"
 fi

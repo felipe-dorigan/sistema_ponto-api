@@ -6,6 +6,29 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
+/**
+ * Model de Registro de Ponto
+ * 
+ * Representa um registro de ponto diário de um funcionário, incluindo
+ * horários de entrada, saída, intervalo e cálculos de horas trabalhadas.
+ * 
+ * @property int $id
+ * @property int $user_id
+ * @property \Illuminate\Support\Carbon $date
+ * @property \Illuminate\Support\Carbon|null $entry_time
+ * @property \Illuminate\Support\Carbon|null $exit_time
+ * @property \Illuminate\Support\Carbon|null $lunch_start
+ * @property \Illuminate\Support\Carbon|null $lunch_end
+ * @property int $worked_minutes
+ * @property int $expected_minutes
+ * @property string|null $notes
+ * @property \Illuminate\Support\Carbon|null $entry_time_recorded_at
+ * @property \Illuminate\Support\Carbon|null $exit_time_recorded_at
+ * @property \Illuminate\Support\Carbon|null $lunch_start_recorded_at
+ * @property \Illuminate\Support\Carbon|null $lunch_end_recorded_at
+ * @property \Illuminate\Support\Carbon|null $created_at
+ * @property \Illuminate\Support\Carbon|null $updated_at
+ */
 class TimeRecord extends Model
 {
     use HasFactory;
