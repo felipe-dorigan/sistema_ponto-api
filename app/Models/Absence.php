@@ -20,6 +20,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @property string $reason
  * @property string $description
  * @property string $status
+ * @property string $impact_type
  * @property int|null $approved_by
  * @property \Illuminate\Support\Carbon|null $approved_at
  * @property \Illuminate\Support\Carbon|null $created_at
@@ -50,6 +51,7 @@ class Absence extends Model
         'reason',
         'description',
         'status',
+        'impact_type',
         'approved_by',
         'approved_at'
     ];

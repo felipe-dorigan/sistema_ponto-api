@@ -18,10 +18,12 @@ use Illuminate\Support\Facades\Hash;
  * de ponto e ausências.
  * 
  * @property int $id
+ * @property int|null $company_id
  * @property string $name
  * @property string $email
  * @property string $password
  * @property string $role
+ * @property \Illuminate\Support\Carbon|null $hire_date
  * @property int $daily_work_hours
  * @property int $lunch_duration
  * @property bool $active
@@ -39,10 +41,12 @@ class User extends Authenticatable implements JWTSubject
      * @var array<int, string>
      */
     protected $fillable = [
+        'company_id',
         'name',
         'email',
         'password',
         'role',
+        'hire_date',
         'daily_work_hours',
         'lunch_duration',
         'active',
@@ -65,6 +69,7 @@ class User extends Authenticatable implements JWTSubject
      */
     protected $casts = [
         'email_verified_at' => 'datetime',
+        'hire_date' => 'date',
         'daily_work_hours' => 'integer',
         'lunch_duration' => 'integer',
         'active' => 'boolean',
