@@ -24,7 +24,8 @@ class CompanyService
      */
     public function __construct(
         private CompanyRepository $companyRepository
-    ) {}
+    ) {
+    }
 
     /**
      * Lista todas as empresas com paginação
@@ -47,11 +48,11 @@ class CompanyService
     public function obter(int $id): Company
     {
         $company = $this->companyRepository->obterPorId($id);
-        
+
         if (!$company) {
             throw new CompanyNotFoundException("Company com ID {$id} não encontrado");
         }
-        
+
         return $company;
     }
 
@@ -78,7 +79,7 @@ class CompanyService
         }
 
         $dados = $dto->toArray();
-        
+
         return $this->companyRepository->incluir($dados);
     }
 
@@ -114,13 +115,13 @@ class CompanyService
         $dados = array_filter($dto->toArray(), function ($value) {
             return $value !== null;
         });
-        
+
         $companyAtualizado = $this->companyRepository->atualizar($id, $dados);
-        
+
         if (!$companyAtualizado) {
             throw new CompanyValidationException("Erro ao atualizar empresa com ID {$id}");
         }
-        
+
         return $companyAtualizado;
     }
 

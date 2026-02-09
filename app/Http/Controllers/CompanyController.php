@@ -24,7 +24,8 @@ class CompanyController extends Controller
      */
     public function __construct(
         private CompanyService $companyService
-    ) {}
+    ) {
+    }
 
     /**
      * Lista todas as empresas com paginação
@@ -37,7 +38,7 @@ class CompanyController extends Controller
         try {
             $perPage = $request->get('per_page', 15);
             $company = $this->companyService->listar($perPage);
-            
+
             return ApiResponse::success(
                 $company,
                 'Empresas listadas com sucesso'
@@ -90,7 +91,7 @@ class CompanyController extends Controller
         try {
             $dto = CompanyDTO::fromRequest($request->all());
             $company = $this->companyService->incluir($dto);
-            
+
             return ApiResponse::success(
                 $company,
                 'Empresa criada com sucesso',
@@ -114,7 +115,7 @@ class CompanyController extends Controller
     {
         try {
             $company = $this->companyService->obter($id);
-            
+
             return ApiResponse::success(
                 $company,
                 'Empresa encontrada'
@@ -168,7 +169,7 @@ class CompanyController extends Controller
         try {
             $dto = CompanyDTO::fromRequest($request->all());
             $company = $this->companyService->atualizar($id, $dto);
-            
+
             return ApiResponse::success(
                 $company,
                 'Empresa atualizada com sucesso'
@@ -191,7 +192,7 @@ class CompanyController extends Controller
     {
         try {
             $this->companyService->excluir($id);
-            
+
             return ApiResponse::success(
                 null,
                 'Empresa removida com sucesso'
