@@ -10,27 +10,27 @@ use App\Exceptions\{{notFoundExceptionName}};
 use Illuminate\Pagination\LengthAwarePaginator;
 
 /**
- * Service responsável pela lógica de negócio de {{routeName}}s
+ * Service responsável pela lógica de negócio de {{modelName}}
  * 
  * Esta classe contém as regras de negócio e validações para operações
- * relacionadas aos {{routeName}}s.
+ * relacionadas ao modelo {{modelName}}.
  */
 class {{serviceName}}
 {
     /**
      * Construtor do serviço
      * 
-     * @param {{repositoryName}} ${{variableName}}Repository Repository de {{routeName}}s injetado via DI
+     * @param {{repositoryName}} ${{variableName}}Repository Repository injetado via DI
      */
     public function __construct(
         private {{repositoryName}} ${{variableName}}Repository
     ) {}
 
     /**
-     * Lista todos os {{routeName}}s com paginação
+     * Lista todos os registros com paginação
      * 
      * @param int $perPage Número de registros por página (padrão: 15)
-     * @return LengthAwarePaginator Lista paginada de {{routeName}}s
+     * @return LengthAwarePaginator Lista paginada de registros
      */
     public function listar(int $perPage = 15): LengthAwarePaginator
     {
@@ -38,11 +38,11 @@ class {{serviceName}}
     }
 
     /**
-     * Obtém um {{routeName}} pelo ID
+     * Obtém um registro pelo ID
      * 
-     * @param int $id ID do {{routeName}}
-     * @return {{modelName}} {{modelName}} encontrado
-     * @throws {{notFoundExceptionName}} Se o {{routeName}} não for encontrado
+     * @param int $id ID do registro
+     * @return {{modelName}} Registro encontrado
+     * @throws {{notFoundExceptionName}} Se o registro não for encontrado
      */
     public function obter(int $id): {{modelName}}
     {
@@ -56,10 +56,11 @@ class {{serviceName}}
     }
 
     /**
-     * Cria um novo {{routeName}}
+     * Cria um novo registro
      * 
-     * @param {{dtoName}} $dto Objeto com os dados do {{routeName}}
-     * @return {{modelName}} {{modelName}} criado
+     * @param {{dtoName}} $dto Objeto com os dados do registro
+     * @return {{modelName}} Registro criado
+     * @throws {{exceptionName}} Se houver erro de validação
      */
     public function incluir({{dtoName}} $dto): {{modelName}}
     {
@@ -75,23 +76,25 @@ class {{serviceName}}
     }
 
     /**
-     * Atualiza um {{routeName}} existente
+     * Atualiza um registro existente
      *
-     * @param int $id ID do {{routeName}} a ser atualizado
+     * @param int $id ID do registro a ser atualizado
      * @param {{dtoName}} $dto Objeto com os novos dados
-     * @return {{modelName}} {{modelName}} atualizado
-     * @throws {{notFoundExceptionName}} Se o {{routeName}} não for encontrado
+     * @return {{modelName}} Registro atualizado
+     * @throws {{notFoundExceptionName}} Se o registro não for encontrado
      * @throws {{exceptionName}} Se houver erro na atualização
      */
     public function atualizar(int $id, {{dtoName}} $dto): {{modelName}}
     {
-        // Verifica se o {{modelName}} existe
+        // Verifica se o registro existe
         if (!$this->{{variableName}}Repository->obterPorId($id)) {
             throw new {{notFoundExceptionName}}("{{modelName}} com ID {$id} não encontrado");
-        }        // Validações de negócio aqui
+        }
+
+        // Validações de negócio aqui
         // Exemplo:
         // if ($dto->email && $this->{{variableName}}Repository->existe('email', $dto->email, $id)) {
-        //     throw new \InvalidArgumentException('Email já existe');
+        //     throw new {{exceptionName}}('Email já existe');
         // }
 
         $dados = array_filter($dto->toArray(), function ($value) {
@@ -108,32 +111,35 @@ class {{serviceName}}
     }
 
     /**
-     * Exclui um {{modelName}}
+     * Exclui um registro
      *
-     * @param int $id
-     * @return bool
-     * @throws {{notFoundExceptionName}}
+     * @param int $id ID do registro
+     * @return bool True se excluído com sucesso
+     * @throws {{notFoundExceptionName}} Se o registro não for encontrado
+     * @throws {{exceptionName}} Se houver dependências
      */
     public function excluir(int $id): bool
     {
-        // Verifica se o {{modelName}} existe
+        // Verifica se o registro existe
         if (!$this->{{variableName}}Repository->obterPorId($id)) {
             throw new {{notFoundExceptionName}}("{{modelName}} com ID {$id} não encontrado");
-        }        // Validações de negócio para exclusão aqui
+        }
+
+        // Validações de negócio para exclusão aqui
         // Exemplo:
         // if ($this->temDependencias($id)) {
-        //     throw new \InvalidArgumentException('Não é possível excluir, há registros dependentes');
+        //     throw new {{exceptionName}}('Não é possível excluir, há registros dependentes');
         // }
 
         return $this->{{variableName}}Repository->excluir($id);
     }
 
     /**
-     * Busca {{modelName}}s por critério específico
+     * Busca registros por critério específico
      * 
-     * @param string $campo
-     * @param mixed $valor
-     * @return \Illuminate\Database\Eloquent\Collection
+     * @param string $campo Campo a ser pesquisado
+     * @param mixed $valor Valor a ser buscado
+     * @return \Illuminate\Database\Eloquent\Collection Coleção de registros
      */
     public function buscarPor(string $campo, $valor)
     {
@@ -141,12 +147,12 @@ class {{serviceName}}
     }
 
     /**
-     * Verifica se um {{modelName}} existe
+     * Verifica se um registro existe
      * 
-     * @param string $campo
-     * @param mixed $valor
-     * @param int|null $excludeId
-     * @return bool
+     * @param string $campo Campo a ser verificado
+     * @param mixed $valor Valor a ser buscado
+     * @param int|null $excludeId ID a ser excluído da busca
+     * @return bool True se existir
      */
     public function existe(string $campo, $valor, ?int $excludeId = null): bool
     {

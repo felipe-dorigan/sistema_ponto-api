@@ -11,26 +11,26 @@ use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Validator;
 
 /**
- * Controller responsável pelo gerenciamento de {{routeName}}s
+ * Controller responsável pelo gerenciamento de {{modelName}}
  * 
- * Este controller gerencia todas as operações CRUD relacionadas aos {{routeName}}s.
+ * Este controller gerencia todas as operações CRUD relacionadas ao modelo {{modelName}}.
  */
 class {{controllerName}} extends Controller
 {
     /**
      * Construtor do controller
      * 
-     * @param {{serviceName}} ${{variableName}}Service Serviço de {{routeName}}s injetado via DI
+     * @param {{serviceName}} ${{variableName}}Service Serviço injetado via DI
      */
     public function __construct(
         private {{serviceName}} ${{variableName}}Service
     ) {}
 
     /**
-     * Lista todos os {{routeName}}s com paginação
+     * Lista todos os registros com paginação
      * 
      * @param Request $request Requisição contendo parâmetros de paginação
-     * @return JsonResponse Lista paginada de {{routeName}}s
+     * @return JsonResponse Lista paginada de registros
      */
     public function listar(Request $request): JsonResponse
     {
@@ -40,21 +40,21 @@ class {{controllerName}} extends Controller
             
             return ApiResponse::success(
                 ${{pluralVariable}},
-                '{{modelName}}s listados com sucesso'
+                'Registros listados com sucesso'
             );
         } catch (\Exception $e) {
             return ApiResponse::error(
-                'Erro ao listar {{routeName}}s: ' . $e->getMessage(),
+                'Erro ao listar registros: ' . $e->getMessage(),
                 500
             );
         }
     }
 
     /**
-     * Cria um novo {{routeName}}
+     * Cria um novo registro
      * 
-     * @param Request $request Requisição contendo os dados do {{routeName}}
-     * @return JsonResponse {{modelName}} criado ou erro de validação
+     * @param Request $request Requisição contendo os dados do registro
+     * @return JsonResponse Registro criado ou erro de validação
      */
     public function incluir(Request $request): JsonResponse
     {
@@ -76,22 +76,22 @@ class {{controllerName}} extends Controller
             
             return ApiResponse::success(
                 ${{variableName}},
-                '{{modelName}} criado com sucesso',
+                'Registro criado com sucesso',
                 201
             );
         } catch (\Exception $e) {
             return ApiResponse::error(
-                'Erro ao criar {{routeName}}: ' . $e->getMessage(),
+                'Erro ao criar registro: ' . $e->getMessage(),
                 500
             );
         }
     }
 
     /**
-     * Obtém um {{routeName}} específico pelo ID
+     * Obtém um registro específico pelo ID
      * 
-     * @param int $id ID do {{routeName}}
-     * @return JsonResponse {{modelName}} encontrado ou erro
+     * @param int $id ID do registro
+     * @return JsonResponse Registro encontrado ou erro
      */
     public function obterPorCodigo(int $id): JsonResponse
     {
@@ -100,22 +100,22 @@ class {{controllerName}} extends Controller
             
             return ApiResponse::success(
                 ${{variableName}},
-                '{{modelName}} encontrado'
+                'Registro encontrado'
             );
         } catch (\Exception $e) {
             return ApiResponse::error(
-                'Erro ao buscar {{routeName}}: ' . $e->getMessage(),
+                'Erro ao buscar registro: ' . $e->getMessage(),
                 404
             );
         }
     }
 
     /**
-     * Atualiza um {{routeName}} existente
+     * Atualiza um registro existente
      * 
-     * @param Request $request
-     * @param int $id
-     * @return JsonResponse
+     * @param Request $request Requisição contendo os dados a serem atualizados
+     * @param int $id ID do registro
+     * @return JsonResponse Registro atualizado ou erro
      */
     public function atualizar(Request $request, int $id): JsonResponse
     {
@@ -137,21 +137,21 @@ class {{controllerName}} extends Controller
             
             return ApiResponse::success(
                 ${{variableName}},
-                '{{modelName}} atualizado com sucesso'
+                'Registro atualizado com sucesso'
             );
         } catch (\Exception $e) {
             return ApiResponse::error(
-                'Erro ao atualizar {{routeName}}: ' . $e->getMessage(),
+                'Erro ao atualizar registro: ' . $e->getMessage(),
                 500
             );
         }
     }
 
     /**
-     * Remove um {{routeName}}
+     * Remove um registro
      * 
-     * @param int $id
-     * @return JsonResponse
+     * @param int $id ID do registro
+     * @return JsonResponse Resultado da exclusão
      */
     public function excluir(int $id): JsonResponse
     {
@@ -160,11 +160,11 @@ class {{controllerName}} extends Controller
             
             return ApiResponse::success(
                 null,
-                '{{modelName}} removido com sucesso'
+                'Registro removido com sucesso'
             );
         } catch (\Exception $e) {
             return ApiResponse::error(
-                'Erro ao remover {{routeName}}: ' . $e->getMessage(),
+                'Erro ao remover registro: ' . $e->getMessage(),
                 500
             );
         }

@@ -52,8 +52,9 @@ class {{modelName}} extends Model
      * @var array<string, string>
      */
     protected $casts = [
-        // 'email_verified_at' => 'datetime',
-        // 'password' => 'hashed',
+{{casts}}
+        'created_at' => 'datetime',
+        'updated_at' => 'datetime',
     ];
 
     /**
