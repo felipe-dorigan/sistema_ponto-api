@@ -106,12 +106,6 @@ docker-compose exec app php artisan migrate --force
 docker-compose exec app php artisan db:seed --force
 ```
 
-### 5. ✅ Pronto!
-
-- **API**: http://localhost:8080
-- **Banco Dev**: localhost:5433 (postgres/postgres/acesse)
-- **Banco Test**: localhost:5434 (postgres/postgres/acesse)
-
 ## 🧪 Testes
 
 A aplicação inclui testes unitários e de integração para garantir a qualidade do código.
