@@ -118,10 +118,6 @@ A aplicação inclui testes unitários e de integração para garantir a qualida
 
 ## 📚 Uso da API
 
-### Autenticação
-
-A API utiliza autenticação JWT. Primeiro, faça login para obter o token:
-
 ````
 
 ### Testes por Categoria
@@ -139,23 +135,6 @@ docker-compose exec app php artisan test tests/Feature/UserCrudTest.php
 # Com relatório detalhado
 docker-compose exec app php artisan test --verbose
 ````
-
-### Configuração do Ambiente de Teste
-
-O projeto possui ambiente de teste isolado:
-
-- **Banco separado**: PostgreSQL na porta 5434
-- **Migrations automáticas**: RefreshDatabase trait
-- **Seeds de teste**: Dados limpos para cada teste
-- **Mocking**: Testes unitários isolados
-
-```bash
-# Configurar ambiente de teste manualmente
-./setup-tests.sh    # Linux/Mac
-./setup-tests.bat   # Windows
-```
-
-## 📚 Uso da API
 
 ### Autenticação
 
@@ -340,7 +319,7 @@ database/
 
 **Desenvolvido usando Laravel & Docker**
 
-[📖 Documentação](https://laravel.com/docs) • [🐛 Reportar Bug](https://github.com/felipe-dorigan/sistema-ponto-api/issues) • [💡 Solicitar Feature](https://github.com/seu-usuario/sistema-ponto-api/issues)
+[📖 Documentação](https://laravel.com/docs) • [🐛 Reportar Bug](https://github.com/felipe-dorigan/sistema-ponto-api/issues) • [💡 Solicitar Feature](https://github.com/felipe-dorigan/sistema-ponto-api/issues)
 
 </div>
 ````
